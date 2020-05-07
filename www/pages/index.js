@@ -1,106 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
-import { Nav } from '../components/Nav'
-import { Portrait } from '../components/Portrait'
-
-const name = 'Felix Spöttel'
-const title = 'Software Developer'
-
-const company = {
-  name: 'Ciara',
-  href: 'https://www.getciara.com/'
-}
-
-const links = [
-  {
-    href: 'mailto://felix@spoet.tel',
-    title: 'Email'
-  },
-  {
-    href: 'https://github.com/fspoettel',
-    title: 'Github'
-  },
-  {
-    href: 'https://last.fm/user/spoeti',
-    title: 'Last.fm'
-  },
-  {
-    href: 'https://letterboxd.com/fspoettel',
-    title: 'Letterboxd'
-  }
-]
+import {
+  description,
+  name,
+  title,
+  url
+} from 'constants/data'
+import { Hero } from 'components/Hero'
 
 export default function Home () {
+  const [activeTheme, setTheme] = useState('default')
+
+  const metaTitle = `${name} | ${title}`
+
   return (
     <div className='container'>
       <Head>
-        <title>{name} | {title}</title>
+        <title>{metaTitle}</title>
         <link rel='icon' href='/favicon.ico' />
         <link href='https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,800;1,300;1,800&display=swap' rel='stylesheet' />
+
+        <meta property='og:title' content={metaTitle} />
+        <meta property='og:url' content={url} />
+        <meta property='og:image' content={`${url}/assets/thumbnail.jpg`} />
+        <meta property='og:description' content={description} />
       </Head>
-      <main>
-        <header className='header'>
-          <div>
-            <Portrait
-              backgroundColor='#101010'
-              color='#dedede'
-              name={name}
-              size='8rem'
-              src='/portrait.jpg'
-            />
-            <div className='titles'>
-              <h1 className='name'>{name}</h1>
-              <h2 className='position'>{title} @ <a href={company.href}>{company.name}</a></h2>
-            </div>
-          </div>
-        </header>
-        <Nav links={links} />
-      </main>
-      <style jsx>{`
-        main {
-          display: flex;
-          flex-flow: column nowrap;
-          height: 100%;
-          position: relative;
-          padding: 0.5rem;
-          overflow-y: auto;
-        }
 
-        header {
-          flex: 1 1 auto;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          margin-bottom: 2rem;
-        }
+      <Hero activeTheme={activeTheme} setTheme={setTheme} />
 
-        .titles {
-          margin-top: 0.5rem;
-        }
-
-        .name {
-          font-size: 2.25rem;
-          margin-bottom: 0.5rem;
-        }
-
-        .position {
-          font-size: 1.125rem;
-          text-transform: lowercase;
-          font-weight: 300;
-          font-style: italic;
-        }
-
-        @media screen and (min-width: 30rem) {
-          main {
-            padding: 1.5rem;
-          }
-        }
-      `}
-      </style>
       <style jsx global>{`
         * {
           box-sizing: border-box;
+        }
+
+        body {
+          --color-bg: 4, 4, 4;
+          --color-text: 255, 255, 255;
+          --color-highlight: 187, 187, 187;
+        }
+
+        body.theme-light {
+          --color-bg: 250, 250, 250;
+          --color-text: 4, 4, 4;
+          --color-highlight: 153, 153, 153;
         }
 
         body {
@@ -108,8 +50,8 @@ export default function Home () {
           font-weight: 300;
           color: currentColor;
           line-height: 1.45;
-          background: #101010;
-          color: #fefefe;
+          background: rgb(var(--color-bg));
+          color: rgb(var(--color-text));
         }
 
         h1,
@@ -128,17 +70,12 @@ export default function Home () {
         }
 
         a:focus {
-          outline: 1px solid #fefefe;
+          outline: 1px solid rgb(var(--color-highlight));
         }
 
-        html,
-        body,
-        #__next,
-        .container {
-          padding: 0;
-          margin: 0;
-          position: relative;
-          height: 100%;
+        .icon-size {
+          width: 1em;
+          height: 1em;
         }
       `}
       </style>
