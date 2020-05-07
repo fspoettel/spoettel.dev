@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "scripts": {
+    "lint": "standard",
+    "dev": "cd www && yarn dev"
+  },
+  "workspaces": [
+    "api",
+    "www"
+  ],
+  "devDependencies": {
+    "standard": "^14.3.3"
+  }
+}
