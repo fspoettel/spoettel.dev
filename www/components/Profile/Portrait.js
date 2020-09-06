@@ -21,6 +21,7 @@ export const Portrait = ({ name, size }) => {
           object-fit: cover;
           object-position: center;
           border-radius: 0.25rem;
+          filter: brightness(1.05) contrast(1.2) grayscale(1);
         }
 
         .portrait {

@@ -22,7 +22,7 @@ export default function Home () {
 
         <meta property='og:title' content={metaTitle} />
         <meta property='og:url' content={url} />
-        <meta property='og:image' content={`${url}/assets/thumbnail.jpg`} />
+        <meta property='og:image' content={`${url}/assets/optimized/thumbnail.jpg`} />
         <meta property='og:description' content={description} />
       </Head>
 
