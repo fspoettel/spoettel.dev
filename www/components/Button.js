@@ -63,7 +63,7 @@ export const Button = ({
           position: relative;
           padding: 0.5rem 1.25rem;
           font-size: 1rem;
-          background-color: transparent;
+          background-color: rgb(var(--color-bg));
           text-decoration: none;
           text-align: center;
           text-transform: lowercase;

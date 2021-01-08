@@ -19,7 +19,9 @@ export const Section = ({
     </div>
     <style jsx scoped>{`
       .section {
+        position: relative;
         padding: 1.5rem;
+        z-index: 2;
       }
 
       .section-header {

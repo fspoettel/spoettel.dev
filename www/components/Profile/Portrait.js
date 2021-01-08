@@ -36,6 +36,7 @@ export const Portrait = ({ name, size }) => {
           width: 100%;
           top: 0;
           left: 0;
+          border-radius: 25%;
         }
       `}
       </style>
@@ -80,11 +81,11 @@ export const Portrait = ({ name, size }) => {
         }
 
         @keyframes radius {
-          0 { border-radius: 0; }
+          0 { border-radius: 25%; }
           25% { border-radius: 50%; transform: rotate(-4deg) scaleX(0.95); }
-          50% { border-radius: 0; }
+          50% { border-radius: 25%; }
           75% { border-radius: 50%; transform: rotate(4deg) scaleX(0.95); }
-          100% { border-radius: 0; }
+          100% { border-radius: 25%; }
         }
 
         .portrait {

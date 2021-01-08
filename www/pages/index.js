@@ -7,6 +7,7 @@ import {
   url
 } from 'constants/data'
 import { Hero } from 'components/Hero'
+import { MouseTrail } from 'components/MouseTrail';
 
 export default function Home () {
   const [activeTheme, setTheme] = useState('default')
@@ -27,6 +28,7 @@ export default function Home () {
       </Head>
 
       <Hero activeTheme={activeTheme} setTheme={setTheme} />
+      <MouseTrail />
 
       <style jsx global>{`
         * {
@@ -76,6 +78,10 @@ export default function Home () {
         .icon-size {
           width: 1em;
           height: 1em;
+        }
+
+        .container {
+          position: relative;
         }
       `}
       </style>
