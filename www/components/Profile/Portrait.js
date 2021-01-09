@@ -14,13 +14,13 @@ export const Portrait = ({ name, size }) => {
         .portrait-image {
           position: absolute;
           z-index: 2;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
+          top: 25%;
+          left: 25%;
+          width: 50%;
+          height: 50%;
           object-fit: cover;
           object-position: center;
-          border-radius: 0.25rem;
+          border-radius: 50%;
           filter: brightness(1.05) contrast(1.2) grayscale(1);
         }
 
@@ -37,15 +37,18 @@ export const Portrait = ({ name, size }) => {
           top: 0;
           left: 0;
           border-radius: 25%;
+          transform: rotate(134.5deg);
+          animation: 0.3s load ease-in-out both, 16s radius linear infinite 0.3s;
         }
-      `}
-      </style>
-      <style jsx>{`
+
         @keyframes load {
           from { box-shadow: none; }
           to {
             box-shadow:
-              8px 8px 0 4px rgb(var(--color-bg)),
+              0 0 4px rgb(var(--color-bg)),
+              2px 2px 0 4px rgb(var(--color-bg)),
+              4px 4px 0 4px rgb(var(--color-bg)),
+              8px 8px 0 4px rgba(var(--color-bg)),
               10px 10px 0 4px rgba(var(--color-highlight), 1),
               20px 20px 0 4px rgb(var(--color-bg)),
               22px 22px 0 4px rgba(var(--color-highlight), 0.8),
@@ -61,6 +64,8 @@ export const Portrait = ({ name, size }) => {
               84px 84px 0 4px rgba(var(--color-highlight), 0.2),
               92px 92px 0 4px rgb(var(--color-bg)),
               96px 96px 0 4px rgba(var(--color-highlight), 0.05),
+              -2px -2px 0 4px rgb(var(--color-bg)),
+              -4px -4px 0 4px rgb(var(--color-bg)),
               -8px -8px 0 4px rgb(var(--color-bg)),
               -10px -10px 0 4px rgba(var(--color-highlight), 1),
               -20px -20px 0 4px rgb(var(--color-bg)),
@@ -82,26 +87,24 @@ export const Portrait = ({ name, size }) => {
 
         @keyframes radius {
           0 { border-radius: 25%; }
-          25% { border-radius: 50%; transform: rotate(-4deg) scaleX(0.95); }
+          25% { border-radius: 50%; transform: rotate(134.5deg) scaleX(0.95); }
           50% { border-radius: 25%; }
-          75% { border-radius: 50%; transform: rotate(4deg) scaleX(0.95); }
+          75% { border-radius: 50%; transform: rotate(134.5deg) scaleX(0.95); }
           100% { border-radius: 25%; }
-        }
-
-        .portrait {
-          height: ${size};
-          width: ${size};
-          margin: 100px;
-        }
-
-        .portrait::after {
-          animation: 0.3s load ease-in-out both, 16s radius linear infinite 0.3s;
         }
 
         @media (prefers-reduced-motion: reduce) {
           .portrait::after {
             animation: none;
           }
+        }
+      `}
+      </style>
+      <style jsx>{`
+        .portrait {
+          height: ${size};
+          width: ${size};
+          margin: 2rem;
         }
       `}
       </style>
