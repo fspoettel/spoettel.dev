@@ -24,9 +24,10 @@ header {
 export function Hero (props) {
   const {
     activeTheme,
+    setTheme,
     bits,
-    initialBitIndex,
-    setTheme
+    bitIndex,
+    categoryName
   } = props
 
   const onToggleTheme = useCallback(() => {
@@ -52,9 +53,13 @@ export function Hero (props) {
       )}
     >
       <aside className='hero-row'>
-        <div className='hero-bit'>
-          <Bit bit={bits[initialBitIndex]} />
-        </div>
+        {bits && (
+          <div className='hero-bit'>
+            <Bit
+              bit={bits[categoryName][bitIndex]}
+            />
+          </div>
+        )}
         <div className='hero-actions'>
           <IconButton
             onClick={onToggleTheme}
@@ -75,12 +80,13 @@ export function Hero (props) {
         }
 
         .hero-actions {
-          flex: 0;
+          flex: 1 0 auto;
           order: 2;
+          text-align: right;
         }
 
         .hero-bit {
-          flex: 1;
+          flex: 1 1 auto;
         }
       `}
       </style>

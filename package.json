@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "lint": "standard",
-    "dev": "cd www && yarn dev"
+    "dev": "(cd api && yarn dev) & (cd www && yarn dev)"
   },
   "devDependencies": {
     "standard": "^14.3.4"

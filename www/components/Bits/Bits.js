@@ -2,7 +2,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAlbum, faGamepad, faPopcorn } from '@fortawesome/pro-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
-function BaseBit ({ icon, children, url, title }) {
+function BaseBit ({ icon, children, data }) {
+  const { url, title } = data
+
   return (
     <div className='bit'>
       <FontAwesomeIcon className='icon-size' icon={icon} />
@@ -46,21 +48,23 @@ function SteamBit ({ bit }) {
 }
 
 function LetterboxdBit ({ bit }) {
-  const { rating } = bit
+  const { rating } = bit.data
 
   function getVerb (rating) {
+    if (Number.isNaN(rating)) return 'Liked'
     if (rating > 4) return 'Loved'
     if (rating > 3) return 'Liked'
     if (rating > 2) return 'Disliked'
     return 'hated'
   }
 
-  return <BaseBit icon={faPopcorn} {...bit}>{getVerb(rating)}</BaseBit>
+  return <BaseBit icon={faPopcorn} {...bit}>Watched &amp; {getVerb(rating)}</BaseBit>
 }
 
 export function Bit ({ bit }) {
-  if (bit.type === 'github') return <GithubBit bit={bit} />
-  if (bit.type === 'steam') return <SteamBit bit={bit} />
-  if (bit.type === 'letterboxd') return <LetterboxdBit bit={bit} />
-  return <LastFmBit bit={bit} />
+  if (bit.type === 'github_star') return <GithubBit bit={bit} />
+  if (bit.type === 'steam_playing') return <SteamBit bit={bit} />
+  if (bit.type === 'letterboxd_watch') return <LetterboxdBit bit={bit} />
+  if (bit.type === 'lastfm_artist') return <LastFmBit bit={bit} />
+  return null
 }

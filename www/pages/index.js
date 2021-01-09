@@ -8,40 +8,37 @@ import {
 } from 'constants/data'
 import { Hero } from 'components/Hero'
 import { MouseTrail } from 'components/MouseTrail'
+import apiService from 'lib/apiService'
 
 function randomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 export async function getServerSideProps () {
-  const bits = [
-    {
-      title: 'Gwent',
-      url: 'https://steamcommunity.com/app/1284410',
-      type: 'steam'
-    },
-    {
-      title: 'Ichiko Aoba',
-      url: 'https://www.last.fm/music/Ichiko+Aoba',
-      type: 'lastfm'
-    },
-    {
-      title: 'node-red/node-red',
-      url: 'https://github.com/node-red/node-red',
-      type: 'github'
-    },
-    {
-      title: 'Evil Under The Sun',
-      url: 'https://letterboxd.com/film/evil-under-the-sun-2001-1/',
-      rating: 3.5,
-      type: 'letterboxd'
-    }
-  ]
+  try {
+    const bits = await apiService.getBits()
+    const cats = Object
+      .keys(bits)
+      .filter(cat => {
+        const catBits = bits[cat]
+        return Array.isArray(catBits) && catBits.length > 0
+      })
 
-  return {
-    props: {
-      bits,
-      initialBitIndex: randomInt(0, bits.length - 1)
+    const catIndex = randomInt(0, cats.length - 1)
+    const categoryName = cats[catIndex]
+    const bitIndex = randomInt(0, bits[categoryName].length - 1)
+
+    return {
+      props: {
+        bits,
+        bitIndex,
+        categoryName
+      }
+    }
+  } catch (err) {
+    console.error(err)
+    return {
+      props: { bits: null }
     }
   }
 }
@@ -66,14 +63,19 @@ export default function Home (props) {
       <Hero
         activeTheme={activeTheme}
         setTheme={setTheme}
-        bits={props.bits}
-        initialBitIndex={props.initialBitIndex}
+        {...props}
       />
       <MouseTrail />
 
       <style jsx global>{`
         * {
           box-sizing: border-box;
+        }
+
+        @media screen and (min-width: 95rem) {
+          :root {
+            font-size: 120%;
+          }
         }
 
         body {
