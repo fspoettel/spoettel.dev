@@ -7,9 +7,46 @@ import {
   url
 } from 'constants/data'
 import { Hero } from 'components/Hero'
-import { MouseTrail } from 'components/MouseTrail';
+import { MouseTrail } from 'components/MouseTrail'
 
-export default function Home () {
+function randomInt (min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+export async function getServerSideProps () {
+  const bits = [
+    {
+      title: 'Gwent',
+      url: 'https://steamcommunity.com/app/1284410',
+      type: 'steam'
+    },
+    {
+      title: 'Ichiko Aoba',
+      url: 'https://www.last.fm/music/Ichiko+Aoba',
+      type: 'lastfm'
+    },
+    {
+      title: 'node-red/node-red',
+      url: 'https://github.com/node-red/node-red',
+      type: 'github'
+    },
+    {
+      title: 'Evil Under The Sun',
+      url: 'https://letterboxd.com/film/evil-under-the-sun-2001-1/',
+      rating: 3.5,
+      type: 'letterboxd'
+    }
+  ]
+
+  return {
+    props: {
+      bits,
+      initialBitIndex: randomInt(0, bits.length - 1)
+    }
+  }
+}
+
+export default function Home (props) {
   const [activeTheme, setTheme] = useState('default')
 
   const metaTitle = `${name} | ${title}`
@@ -26,8 +63,12 @@ export default function Home () {
         <meta property='og:image' content={`${url}/assets/optimized/thumbnail.jpg`} />
         <meta property='og:description' content={description} />
       </Head>
-
-      <Hero activeTheme={activeTheme} setTheme={setTheme} />
+      <Hero
+        activeTheme={activeTheme}
+        setTheme={setTheme}
+        bits={props.bits}
+        initialBitIndex={props.initialBitIndex}
+      />
       <MouseTrail />
 
       <style jsx global>{`
