@@ -1,4 +1,4 @@
-function isMaxDaysAgo (date, days = 31) {
+function isMaxDaysAgo (date, days) {
   if (!(date instanceof Date) || Number.isNaN(date.valueOf())) return false
   const startDate = new Date()
   startDate.setDate(startDate.getDate() - days)

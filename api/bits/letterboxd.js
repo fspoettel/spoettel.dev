@@ -53,7 +53,6 @@ function toBitLetterboxdWatch (item) {
   return {
     type: 'letterboxd_watch',
     data: {
-      coverUrl: undefined, // TODO
       rating: ratingField ? Number.parseFloat(ratingField['#']) : undefined,
       title: titleField ? titleField['#'] : item.title,
       url: item.link,
@@ -62,10 +61,8 @@ function toBitLetterboxdWatch (item) {
   }
 }
 
-async function getLetterboxdWatches () {
+module.exports = async function getBits () {
   const entries = await getDiaryEntries({ user: process.env.LETTERBOXD_USER }, Infinity)
   return entries.map(toBitLetterboxdWatch)
     .filter((item, i) => i === 0 || isMaxDaysAgo(item.data.watchedAt, 30))
 }
-
-module.exports = getLetterboxdWatches

@@ -45,13 +45,12 @@ function toBitLastFmArtist (data) {
     data: {
       url: data.url,
       plays: data.playcount,
-      title: data.name,
-      cover: undefined // TODO
+      title: data.name
     }
   }
 }
 
-async function getLastFmArtists () {
+module.exports = async function getBits () {
   const artists = await getTopArtists({
     apiKey: process.env.LASTFM_API_KEY,
     user: process.env.LASTFM_USER,
@@ -62,5 +61,3 @@ async function getLastFmArtists () {
     .map(toBitLastFmArtist)
     .filter((_, i) => i < 8)
 }
-
-module.exports = getLastFmArtists

@@ -33,7 +33,7 @@ function toBitPlaying (game) {
   }
 }
 
-async function getSteamGames () {
+module.exports = async function getBits () {
   const games = await getRecentlyPlayedGames({
     apiKey: process.env.STEAM_API_KEY,
     steamId: process.env.STEAM_USER
@@ -47,5 +47,3 @@ async function getSteamGames () {
       g.data.minutesPlayed > 30
     )
 }
-
-module.exports = getSteamGames

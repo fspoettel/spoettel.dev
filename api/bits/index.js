@@ -1,17 +1,19 @@
 const debug = require('debug')('app:bits')
 const { isMaxDaysAgo } = require('../lib/helpers')
 const getGithubStars = require('./github')
-const getLastFmArtists = require('./lastfm')
-const getLetterboxdWatches = require('./letterboxd')
-const getSteamGames = require('./steam')
+const getLastFmArtistBits = require('./lastfm')
+const getLetterboxdWatchedBits = require('./letterboxd')
+const getSteamPlayingBits = require('./steam')
+const getTraktWatchingBits = require('./trakt')
 
 const cache = new Map()
 
 const bitMapping = {
-  letterboxd_watch: getLetterboxdWatches,
-  lastfm_artist: getLastFmArtists,
+  letterboxd_watch: getLetterboxdWatchedBits,
+  lastfm_artist: getLastFmArtistBits,
   github_star: getGithubStars,
-  steam_playing: getSteamGames
+  steam_playing: getSteamPlayingBits,
+  trakt_watching: getTraktWatchingBits
 }
 
 async function retrieveBitsForType (type, fn) {
@@ -33,8 +35,6 @@ async function retrieveBitsForType (type, fn) {
     return { [type]: cachedEntry.response }
   }
 
-  debug(`${type}: starting retrieval`)
-
   try {
     const response = await fn()
     debug(`${type}: retrieved ${response.length} bits`)
@@ -50,7 +50,6 @@ async function retrieveBits () {
   const bits = await Promise.all(
     Object.entries(bitMapping).map(([key, value]) => retrieveBitsForType(key, value))
   )
-
   return bits.reduce((acc, curr) => ({ ...acc, ...curr }), {})
 }
 
