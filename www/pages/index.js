@@ -3,6 +3,7 @@ import Head from 'next/head'
 import {
   description,
   name,
+  ogDescription,
   title,
   url
 } from 'constants/data'
@@ -48,18 +49,36 @@ export default function Home (props) {
 
   const metaTitle = `${name} | ${title}`
 
+  const fontUrl = 'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,800;1,300&display=swap'
+
   return (
     <div className='container'>
       <Head>
         <title>{metaTitle}</title>
+        <meta name='description' content={description} />
+
         <link rel='icon' href='/favicon.ico' />
-        <link href='https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,800;1,300;1,800&display=swap' rel='stylesheet' />
+
+        <link
+          rel='preload'
+          href={fontUrl}
+          as='style'
+          onload='this.onload=null;this.rel="stylesheet"'
+        />
+        <noscript>
+          <link
+            href={fontUrl}
+            rel='stylesheet'
+            type='text/css'
+          />
+        </noscript>
 
         <meta property='og:title' content={metaTitle} />
         <meta property='og:url' content={url} />
         <meta property='og:image' content={`${url}/assets/optimized/thumbnail.jpg`} />
-        <meta property='og:description' content={description} />
+        <meta property='og:description' content={ogDescription} />
       </Head>
+
       <Hero
         activeTheme={activeTheme}
         setTheme={setTheme}

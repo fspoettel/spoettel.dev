@@ -64,6 +64,7 @@ export function Hero (props) {
           <IconButton
             onClick={onToggleTheme}
             icon={activeTheme === 'default' ? faSun : faMoonStars}
+            aria-label='Toggle theme'
           />
         </div>
       </aside>

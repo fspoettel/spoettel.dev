@@ -10,7 +10,8 @@ export const title = 'Software Developer'
 
 const location = 'Berlin'
 
-export const description = `Hey! I am ${firstName}, a ${title.toLowerCase()} from ${location}.`
+export const description = `Personal website of ${name}, a ${title.toLowerCase()} from ${location}.`
+export const ogDescription = `Hey there! I'm ${firstName}, a ${title.toLowerCase()} from ${location}.`
 
 export const url = 'https://spoettel.dev'
 
