@@ -10,30 +10,18 @@ import {
 import { Hero } from 'components/Hero'
 import { MouseTrail } from 'components/MouseTrail'
 import apiService from 'lib/apiService'
-
-function randomInt (min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
+import { getRandomBit } from 'components/Bits/helpers'
 
 export async function getServerSideProps () {
   try {
     const bits = await apiService.getBits()
-    const cats = Object
-      .keys(bits)
-      .filter(cat => {
-        const catBits = bits[cat]
-        return Array.isArray(catBits) && catBits.length > 0
-      })
-
-    const catIndex = randomInt(0, cats.length - 1)
-    const categoryName = cats[catIndex]
-    const bitIndex = randomInt(0, bits[categoryName].length - 1)
+    const randomBit = getRandomBit(bits, [])
 
     return {
       props: {
         bits,
-        bitIndex,
-        categoryName
+        bitId: randomBit.data.id,
+        catId: randomBit.type
       }
     }
   } catch (err) {

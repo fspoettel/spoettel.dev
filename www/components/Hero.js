@@ -4,7 +4,7 @@ import { faMoonStars, faSun } from '@fortawesome/pro-solid-svg-icons'
 import { IconButton } from './IconButton'
 import { Section } from './Section'
 import { Profile } from './Profile'
-import { Bit } from './Bits/Bits'
+import { Bits } from './Bits/Bits'
 
 const { className: heroCx, styles: heroStyles } = css.resolve`
 div {
@@ -26,8 +26,8 @@ export function Hero (props) {
     activeTheme,
     setTheme,
     bits,
-    bitIndex,
-    categoryName
+    bitId,
+    catId
   } = props
 
   const onToggleTheme = useCallback(() => {
@@ -55,8 +55,10 @@ export function Hero (props) {
       <aside className='hero-row'>
         {bits && (
           <div className='hero-bit'>
-            <Bit
-              bit={bits[categoryName][bitIndex]}
+            <Bits
+              bits={bits}
+              initialCatId={catId}
+              initialBitId={bitId}
             />
           </div>
         )}
