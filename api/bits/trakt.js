@@ -42,7 +42,7 @@ function toBitTraktWatch (watch) {
     data: {
       episodes: [watch.episode?.number],
       seasons: [watch.episode?.season],
-      showId: watch.show.ids.trakt,
+      id: watch.show.ids.trakt,
       title: watch.show.title,
       url: `https://trakt.tv/shows/${watch.show.ids.slug}`,
       watchedAt: new Date(watch.watched_at)
@@ -67,13 +67,13 @@ module.exports = async function getBits () {
 
   const collectedShows = bits
     .reduce((acc, curr) => {
-      const { showId } = curr.data
+      const { id } = curr.data
 
-      const current = acc[showId]
+      const current = acc[id]
 
       return {
         ...acc,
-        [showId]: {
+        [id]: {
           ...(curr ?? {}),
           data: {
             ...curr.data,

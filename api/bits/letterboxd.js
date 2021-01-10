@@ -53,6 +53,7 @@ function toBitLetterboxdWatch (item) {
   return {
     type: 'letterboxd_watch',
     data: {
+      id: item.guid,
       rating: ratingField ? Number.parseFloat(ratingField['#']) : undefined,
       title: titleField ? titleField['#'] : item.title,
       url: item.link,

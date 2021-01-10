@@ -1,4 +1,5 @@
 const got = require('got')
+const { snakeCase } = require('lodash')
 const { NotFoundError } = require('../lib/errors')
 
 const BASE_URL = 'https://ws.audioscrobbler.com/2.0/'
@@ -43,6 +44,7 @@ function toBitLastFmArtist (data) {
   return {
     type: 'lastfm_artist',
     data: {
+      id: snakeCase(data.name),
       url: data.url,
       plays: data.playcount,
       title: data.name

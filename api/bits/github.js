@@ -37,6 +37,7 @@ function toBitGithubStar (data) {
   return {
     type: 'github_star',
     data: {
+      id: data.repo.id,
       starredAt: new Date(data.starred_at),
       url: data.repo.html_url,
       title: `${data.repo.owner.login}/${data.repo.name}`,

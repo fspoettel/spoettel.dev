@@ -26,6 +26,7 @@ function toBitPlaying (game) {
   return {
     type: 'steam_playing',
     data: {
+      id: game.appid,
       minutesPlayed: game.playtime_2weeks,
       title: game.name,
       url: `https://steamcommunity.com/app/${game.appid}`
