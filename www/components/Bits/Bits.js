@@ -19,6 +19,7 @@ function BaseBit ({ icon, children, data }) {
           padding: 0.5rem;
           border: 1px solid rgba(var(--color-highlight), 0.25);
           border-radius: 0.25rem;
+          animation: fadeInLeft 0.3s ease-in-out forwards;
         }
 
         .bit-content {
@@ -28,6 +29,18 @@ function BaseBit ({ icon, children, data }) {
         .bit-link {
           text-decoration-style: dotted;
           text-decoration-skip-ink: all;
+        }
+
+        @keyframes fadeInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(calc(-100% + 2rem));
+          }
+
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
       `}
       </style>

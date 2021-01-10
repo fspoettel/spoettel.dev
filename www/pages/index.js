@@ -49,7 +49,7 @@ export default function Home (props) {
 
   const metaTitle = `${name} | ${title}`
 
-  const fontUrl = 'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,800;1,300&display=swap'
+  const fontUrl = 'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,800;1,400&display=swap'
 
   return (
     <div className='container'>
@@ -59,24 +59,12 @@ export default function Home (props) {
 
         <link rel='icon' href='/favicon.ico' />
 
-        <link
-          rel='preload'
-          href={fontUrl}
-          as='style'
-          onload='this.onload=null;this.rel="stylesheet"'
-        />
-        <noscript>
-          <link
-            href={fontUrl}
-            rel='stylesheet'
-            type='text/css'
-          />
-        </noscript>
-
         <meta property='og:title' content={metaTitle} />
         <meta property='og:url' content={url} />
         <meta property='og:image' content={`${url}/assets/optimized/thumbnail.jpg`} />
         <meta property='og:description' content={ogDescription} />
+
+        <link href={fontUrl} rel='stylesheet' type='text/css' />
       </Head>
 
       <Hero
@@ -89,6 +77,16 @@ export default function Home (props) {
       <style jsx global>{`
         * {
           box-sizing: border-box;
+        }
+
+        :root {
+          font-size: 90%;
+        }
+
+        @media screen and (min-width: 40rem) {
+          :root {
+            font-size: 100%;
+          }
         }
 
         @media screen and (min-width: 95rem) {
@@ -110,8 +108,8 @@ export default function Home (props) {
         }
 
         body {
-          font-family: 'Work Sans', sans-serif;
-          font-weight: 300;
+          font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+          font-weight: 400;
           color: currentColor;
           line-height: 1.45;
           background: rgb(var(--color-bg));
