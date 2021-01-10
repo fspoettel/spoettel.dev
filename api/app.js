@@ -14,6 +14,7 @@ app.get('/api/bits', asyncHandler(async (req, res) => {
     const bits = await retrieveBits()
     return res.json(bits)
   } catch (err) {
+    console.error(err)
     res.status(500).json({
       error: {
         code: 'internal_server_error'

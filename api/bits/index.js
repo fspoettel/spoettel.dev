@@ -1,12 +1,10 @@
 const debug = require('debug')('app:bits')
-const { isMaxDaysAgo } = require('../lib/helpers')
+const Cache = require('../lib/cache')
 const getGithubStars = require('./github')
 const getLastFmArtistBits = require('./lastfm')
 const getLetterboxdWatchedBits = require('./letterboxd')
 const getSteamPlayingBits = require('./steam')
 const getTraktWatchingBits = require('./trakt')
-
-const cache = new Map()
 
 const bitMapping = {
   letterboxd_watch: getLetterboxdWatchedBits,
@@ -16,29 +14,21 @@ const bitMapping = {
   trakt_watching: getTraktWatchingBits
 }
 
+const cache = new Cache()
+
 async function retrieveBitsForType (type, fn) {
   debug(`${type}: retrieval request`)
-
   const cachedEntry = cache.get(type)
 
   if (cachedEntry) {
-    debug(`${type}: found cached entry ${cachedEntry.createdAt}`)
-
-    const cachedDate = new Date(cachedEntry.createdAt)
-
-    if (!(isMaxDaysAgo(cachedDate, 1))) {
-      debug(`${type}: expiring cache`)
-      cache.delete(type)
-    }
-
-    debug(`${type}: returning cached entry with ${cachedEntry.response.length} bits`)
-    return { [type]: cachedEntry.response }
+    debug(`${type}: returning cached entry with ${cachedEntry.value.length} bits`)
+    return { [type]: cachedEntry.value }
   }
 
   try {
     const response = await fn()
     debug(`${type}: retrieved ${response.length} bits`)
-    cache.set(type, { createdAt: Date.now(), response })
+    cache.set(type, response)
     return { [type]: response }
   } catch (err) {
     console.error(err)
