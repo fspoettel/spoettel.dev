@@ -16,30 +16,40 @@ const bitMapping = {
 
 const cache = new Cache()
 
-async function retrieveBitsForType (type, fn) {
-  debug(`${type}: retrieval request`)
-  const cachedEntry = cache.get(type)
+async function retrieveBitsForType (type, fn, { isForced }) {
+  debug(`starting retrieve for: ${type}`)
 
-  if (cachedEntry) {
+  if (!isForced && cache.has(type)) {
+    const cachedEntry = cache.get(type)
     debug(`${type}: returning cached entry with ${cachedEntry.value.length} bits`)
     return { [type]: cachedEntry.value }
   }
 
-  try {
-    const response = await fn()
-    debug(`${type}: retrieved ${response.length} bits`)
-    cache.set(type, response)
-    return { [type]: response }
-  } catch (err) {
-    console.error(err)
-    return { [type]: [] }
-  }
+  const response = await fn()
+  debug(`retrieved ${response.length} bits for ${type}`)
+
+  cache.set(type, response)
+  return { [type]: response }
 }
 
-async function retrieveBits () {
-  const bits = await Promise.all(
-    Object.entries(bitMapping).map(([key, value]) => retrieveBitsForType(key, value))
+async function retrieveBits ({ isForced = false } = {}) {
+  debug('starting retrieve for all types')
+
+  const results = await Promise.allSettled(
+    Object.entries(bitMapping).map(([key, value]) => retrieveBitsForType(key, value, { isForced }))
   )
+
+  const bits = []
+
+  results.forEach(({ status, value, reason }) => {
+    if (status === 'fulfilled') {
+      bits.push(value)
+    } else {
+      // TODO log to sentry
+      console.error(reason)
+    }
+  })
+
   return bits.reduce((acc, curr) => ({ ...acc, ...curr }), {})
 }
 

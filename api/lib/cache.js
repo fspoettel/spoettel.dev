@@ -32,6 +32,18 @@ class Cache {
     return entry
   }
 
+  has (key) {
+    const entry = this.store.get(key)
+    if (!entry) return false
+
+    if (!this.isValid(entry)) {
+      this.store.delete(key)
+      return false
+    }
+
+    return true
+  }
+
   isValid (entry) {
     const { createdAt, ttl } = entry
     const now = Date.now()

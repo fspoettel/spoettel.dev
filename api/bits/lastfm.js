@@ -1,6 +1,7 @@
 const got = require('got')
-const { snakeCase } = require('lodash')
+const snakeCase = require('lodash.snakecase')
 const { NotFoundError } = require('../lib/errors')
+
 
 const BASE_URL = 'https://ws.audioscrobbler.com/2.0/'
 

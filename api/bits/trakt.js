@@ -1,9 +1,12 @@
 const got = require('got')
-const { uniq } = require('lodash')
 const { NotFoundError } = require('../lib/errors')
 const { isMaxDaysAgo } = require('../lib/helpers')
 
 const BASE_URL = 'https://api.trakt.tv'
+
+function uniq (arr) {
+  return Array.from(new Set(arr))
+}
 
 async function getShowHistory (config, limit) {
   let shows = []

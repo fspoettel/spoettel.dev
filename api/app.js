@@ -2,6 +2,7 @@ const express = require('express')
 const helmet = require('helmet')
 const retrieveBits = require('./bits')
 const { asyncHandler } = require('./lib/helpers')
+const schedule = require('./lib/schedule')
 
 const app = express()
 
@@ -16,11 +17,11 @@ app.get('/api/bits', asyncHandler(async (req, res) => {
   } catch (err) {
     console.error(err)
     res.status(500).json({
-      error: {
-        code: 'internal_server_error'
-      }
+      error: { code: 'internal_server_error' }
     })
   }
 }))
+
+schedule(4 * 60 * 60 * 1000, () => retrieveBits({ isForced: true }))
 
 module.exports = app
