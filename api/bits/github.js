@@ -54,7 +54,7 @@ async function getGithubStars () {
 
   return stars
     .map(toBitGithubStar)
-    .filter(s => s === 0 || isMaxDaysAgo(s.data.starredAt, 30))
+    .filter(s => isMaxDaysAgo(s.data.starredAt, 30))
 }
 
 module.exports = getGithubStars

@@ -66,7 +66,7 @@ module.exports = async function getBits () {
   const bits = watches
     .filter(x => Object.hasOwnProperty.call(x, 'show') && x.type === 'episode')
     .map(toBitTraktWatch)
-    .filter((w, i) => i === 0 || isMaxDaysAgo(w.data.watchedAt, 30))
+    .filter((w, i) => isMaxDaysAgo(w.data.watchedAt, 30))
 
   const collectedShows = bits
     .reduce((acc, curr) => {

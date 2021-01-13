@@ -67,5 +67,5 @@ function toBitLetterboxdWatch (item) {
 module.exports = async function getBits () {
   const entries = await getDiaryEntries({ user: process.env.LETTERBOXD_USER }, Infinity)
   return entries.map(toBitLetterboxdWatch)
-    .filter((item, i) => i === 0 || isMaxDaysAgo(item.data.watchedAt, 30))
+    .filter((item, i) => isMaxDaysAgo(item.data.watchedAt, 30))
 }
