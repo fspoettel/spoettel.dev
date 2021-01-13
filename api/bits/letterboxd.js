@@ -49,6 +49,7 @@ function toBitLetterboxdWatch (item) {
   const ratingField = item['letterboxd:memberrating']
   const titleField = item['letterboxd:filmtitle']
   const watchedDateField = item['letterboxd:watcheddate']
+  const yearField = item['letterboxd:filmyear']
 
   return {
     type: 'letterboxd_watch',
@@ -57,7 +58,8 @@ function toBitLetterboxdWatch (item) {
       rating: ratingField ? Number.parseFloat(ratingField['#']) : undefined,
       title: titleField ? titleField['#'] : item.title,
       url: item.link,
-      watchedAt: watchedDateField ? new Date(watchedDateField['#']) : undefined
+      watchedAt: watchedDateField ? new Date(watchedDateField['#']) : undefined,
+      year: yearField ? yearField['#'] : undefined
     }
   }
 }

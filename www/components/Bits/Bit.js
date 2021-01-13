@@ -1,15 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAlbum, faGamepad, faPopcorn, faTvRetro } from '@fortawesome/pro-solid-svg-icons'
+import { faAlbum, faGamepad, faPopcorn, faRepeat, faTvRetro } from '@fortawesome/pro-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
-function BaseBit ({ icon, children, data }) {
-  const { url, title } = data
-
+function BaseBit ({ icon, children, data, title }) {
   return (
     <div className='bit'>
       <FontAwesomeIcon className='icon-size' icon={icon} />
       <span className='bit-content'>{children}</span>&nbsp;
-      <a className='bit-link' href={url} target='_blank' rel='noopener noreferrer'>{title}</a>
+      <a className='bit-link' href={data.url} target='_blank' rel='noopener noreferrer'>
+        {title || data.title}
+      </a>
       <style jsx scoped>{`
         .bit {
           display: inline-block;
@@ -67,14 +67,27 @@ function SteamBit ({ bit }) {
 function LetterboxdBit ({ bit }) {
   function getVerb () {
     const { rating } = bit.data
-    if (Number.isNaN()) return 'Liked'
+    if (Number.isNaN()) return null
     if (rating > 4) return 'Loved'
-    if (rating > 3) return 'Liked'
-    if (rating > 2) return 'Disliked'
-    return 'hated'
+    if (rating >= 3.5) return 'Liked'
+    if (rating === 3) return 'Enjoyed'
+    if (rating >= 2) return 'Disliked'
+    return 'Hated'
   }
 
-  return <BaseBit icon={faPopcorn} {...bit}>Watched &amp; {getVerb()}</BaseBit>
+  const verb = getVerb()
+
+  return (
+    <BaseBit
+      icon={faPopcorn}
+      {...bit}
+      title={bit.data.year
+        ? `${bit.data.title} (${bit.data.year})`
+        : bit.data.title}
+    >
+      {verb ? `Watched & ${verb}` : 'Watched'}
+    </BaseBit>
+  )
 }
 
 function TraktBit ({ bit }) {
