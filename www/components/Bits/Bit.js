@@ -1,6 +1,14 @@
+import cx from 'classnames'
+import css from 'styled-jsx/css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAlbum, faGamepad, faPopcorn, faRepeat, faTvRetro } from '@fortawesome/pro-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+
+const { className: iconCx, styles: iconStyles } = css.resolve`
+  svg {
+    margin-top: 0.125em;
+  }
+`
 
 function getFormattedDate (val, prefix = 'on ') {
   if (!val) return null
@@ -27,17 +35,18 @@ function BaseBit ({
   return (
     <div className='bit-container'>
       <div
-        className={visible ? 'bit bit_visible' : 'bit'}
+        className={cx('bit', { bit_visible: visible })}
         onTransitionEnd={onTransitionEnd}
       >
         <div className='bit-inner'>
-          <FontAwesomeIcon className='icon-size' icon={icon} />
+          <FontAwesomeIcon className={cx('icon-size', iconCx)} icon={icon} />
           <span className='bit-content'>{children}&nbsp;<a className='bit-link' href={data.url} target='_blank' rel='noopener noreferrer'>{linkTitle}</a></span>
         </div>
         {info && (
           <div className='bit-info'>{info}</div>
         )}
       </div>
+      {iconStyles}
       <style jsx scoped>{`
         .bit-container {
           display: flex;
@@ -64,6 +73,7 @@ function BaseBit ({
           position: relative;
           display: flex;
           flex-flow: row nowrap;
+          align-items: flex-start;
           padding: 0.5rem;
           background: rgb(var(--color-bg));
           border-radius: 0.25rem;
@@ -75,7 +85,7 @@ function BaseBit ({
         .bit-info {
           position: absolute;
           top: calc(100% + 2px);
-          right: 0.75rem;
+          right: 0.5rem;
           max-width: 100%;
           background: rgb(var(--color-text));
           color: rgb(var(--color-bg));

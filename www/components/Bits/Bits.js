@@ -55,7 +55,9 @@ export function Bits ({
 
   useEffect(() => {
     setVisible()
-    return () => { clearTimeout(timeoutRef) }
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
   }, [bits])
 
   return (
