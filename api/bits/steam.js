@@ -23,12 +23,18 @@ async function getRecentlyPlayedGames (config, limit) {
 }
 
 function toBitPlaying (game) {
+  const SUBSTITUTIONS = {
+    1111940: 'Quiplash 2',
+    730: 'CS:GO',
+    1284410: 'Gwent'
+  }
+
   return {
     type: 'steam_playing',
     data: {
       id: game.appid,
       minutesPlayed: game.playtime_2weeks,
-      title: game.name,
+      title: SUBSTITUTIONS[game.appid] ?? game.name,
       url: `https://steamcommunity.com/app/${game.appid}`
     }
   }
