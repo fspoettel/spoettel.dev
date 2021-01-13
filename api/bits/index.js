@@ -1,14 +1,18 @@
 const debug = require('debug')('app:bits')
 const Cache = require('../lib/cache')
 const getGithubStars = require('./github')
-const getLastFmArtistBits = require('./lastfm')
+const {
+  getTopArtistBits,
+  getTopTrackBits
+} = require('./lastfm')
 const getLetterboxdWatchedBits = require('./letterboxd')
 const getSteamPlayingBits = require('./steam')
 const getTraktWatchingBits = require('./trakt')
 
 const bitMapping = {
   letterboxd_watch: getLetterboxdWatchedBits,
-  lastfm_artist: getLastFmArtistBits,
+  lastfm_artist: getTopArtistBits,
+  lastfm_track: getTopTrackBits,
   github_star: getGithubStars,
   steam_playing: getSteamPlayingBits,
   trakt_watching: getTraktWatchingBits

@@ -52,8 +52,12 @@ function GithubBit ({ bit }) {
   return <BaseBit icon={faGithub} {...bit}>Starred</BaseBit>
 }
 
-function LastFmBit ({ bit }) {
+function LastFmArtistBit ({ bit }) {
   return <BaseBit icon={faAlbum} {...bit}>Listening to</BaseBit>
+}
+
+function LastFmTrackBit ({ bit }) {
+  return <BaseBit icon={faRepeat} {...bit}>Obsessed with</BaseBit>
 }
 
 function SteamBit ({ bit }) {
@@ -86,7 +90,8 @@ export function Bit ({ bit }) {
   if (bit.type === 'github_star') return <GithubBit bit={bit} />
   if (bit.type === 'steam_playing') return <SteamBit bit={bit} />
   if (bit.type === 'letterboxd_watch') return <LetterboxdBit bit={bit} />
-  if (bit.type === 'lastfm_artist') return <LastFmBit bit={bit} />
+  if (bit.type === 'lastfm_artist') return <LastFmArtistBit bit={bit} />
+  if (bit.type === 'lastfm_track') return <LastFmTrackBit bit={bit} />
   if (bit.type === 'trakt_watching') return <TraktBit bit={bit} />
   return null
 }
