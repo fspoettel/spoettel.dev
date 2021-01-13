@@ -27,7 +27,6 @@ async function getTopArtists ({ apiKey, user, period }, limit) {
       limit,
       period
     })
-
     artists = res.topartists.artist
   } catch (err) {
     if (err instanceof got.HTTPError && err.response.statusCode === 404) {
@@ -40,37 +39,17 @@ async function getTopArtists ({ apiKey, user, period }, limit) {
   return artists
 }
 
-async function getWeeklyTopTracks ({ apiKey, user }, limit) {
+async function getTopTracks ({ apiKey, user, period }, limit) {
   let tracks = []
 
   try {
-    const {
-      weeklychartlist: { chart }
-    } = await makeLastFmRequest('user.getWeeklyChartList', user, { apiKey })
+    const res = await makeLastFmRequest('user.gettoptracks', user, {
+      apiKey,
+      limit,
+      period
+    })
 
-    if (chart.length === 0) return tracks
-
-    const chartDefinitions = chart.length <= limit
-      ? chart
-      : chart.slice(chart.length - limit - 1, chart.length - 1)
-
-    const charts = await Promise.all(
-      chartDefinitions.map(
-        c => makeLastFmRequest('user.getWeeklyTrackChart', user, {
-          apiKey,
-          from: c.from,
-          to: c.to
-        })
-      )
-    )
-
-    tracks = charts
-      .filter(c => c?.weeklytrackchart?.track?.length > 0)
-      .map(c => ({
-        track: c.weeklytrackchart.track[0],
-        from: c.weeklytrackchart?.['@attr']?.from,
-        to: c.weeklytrackchart?.['@attr']?.to
-      }))
+    tracks = res.toptracks.track
   } catch (err) {
     if (err instanceof got.HTTPError && err.response.statusCode === 404) {
       throw new NotFoundError(`user ${user} does not appear to be a valid last.fm user.`)
@@ -94,8 +73,8 @@ function toBitLastFmArtist (data) {
   }
 }
 
-function toBitLastFmTrack ({ track, from, to }) {
-  const title = `${track.artist['#text']} - ${track.name}`
+function toBitLastFmTrack (track) {
+  const title = `${track.artist.name} - ${track.name}`
 
   return {
     type: 'lastfm_track',
@@ -103,8 +82,7 @@ function toBitLastFmTrack ({ track, from, to }) {
       id: track.mbid || snakeCase(title),
       title,
       url: track.url,
-      plays: track.playcount,
-      week: [from, to]
+      plays: track.playcount
     }
   }
 }
@@ -115,18 +93,17 @@ module.exports = {
       apiKey: process.env.LASTFM_API_KEY,
       user: process.env.LASTFM_USER,
       period: '1month'
-    }, Infinity)
+    }, 5)
 
-    return artists
-      .map(toBitLastFmArtist)
-      .filter((_, i) => i < 8)
+    return artists.map(toBitLastFmArtist)
   },
   async getTopTrackBits () {
-    const tracks = await getWeeklyTopTracks({
+    const tracks = await getTopTracks({
       apiKey: process.env.LASTFM_API_KEY,
-      user: process.env.LASTFM_USER
-    }, 4)
+      user: process.env.LASTFM_USER,
+      period: '1month'
+    }, 5)
 
-    return tracks.reverse().map(toBitLastFmTrack)
+    return tracks.map(toBitLastFmTrack)
   }
 }

@@ -83,8 +83,7 @@ export function Hero (props) {
         }
 
         .hero-actions {
-          flex: 1 0 auto;
-          order: 2;
+          flex: 0 0 auto;
           text-align: right;
         }
 

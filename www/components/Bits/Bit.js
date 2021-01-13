@@ -2,24 +2,77 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAlbum, faGamepad, faPopcorn, faRepeat, faTvRetro } from '@fortawesome/pro-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
-function BaseBit ({ icon, children, data, title }) {
+function getFormattedDate (val, prefix = 'on ') {
+  if (!val) return null
+
+  try {
+    const dateStr = new Intl.DateTimeFormat('de-DE').format(new Date(val))
+    return `${prefix}${dateStr}`
+  } catch (err) {
+    return null
+  }
+}
+
+function BaseBit ({
+  icon,
+  info,
+  children,
+  data,
+  title
+}) {
+  const linkTitle = title || data.title
+
   return (
-    <div className='bit'>
-      <FontAwesomeIcon className='icon-size' icon={icon} />
-      <span className='bit-content'>{children}</span>&nbsp;
-      <a className='bit-link' href={data.url} target='_blank' rel='noopener noreferrer'>
-        {title || data.title}
-      </a>
+    <div className='bit-container'>
+      <div className='bit'>
+        <div className='bit-inner'>
+          <FontAwesomeIcon className='icon-size' icon={icon} />
+          <span className='bit-content'>{children}&nbsp;<a className='bit-link' href={data.url} target='_blank' rel='noopener noreferrer'>{linkTitle}</a></span>
+        </div>
+        {info && (
+          <div className='bit-info'>{info}</div>
+        )}
+      </div>
       <style jsx scoped>{`
+        .bit-container {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          justify-content: flex-start;
+          min-height: calc(1.2rem * 2 + 0.5rem * 2 + 2px);
+          max-width: 28rem;
+        }
+
         .bit {
-          display: inline-block;
-          text-transform: lowercase;
-          line-height: 1;
-          background: rgba(var(--color-bg), 1);
-          padding: 0.5rem;
-          border: 1px solid rgba(var(--color-highlight), 0.25);
-          border-radius: 0.25rem;
+          position: relative;
           animation: fadeInLeft 0.3s ease-in-out forwards;
+          text-transform: lowercase;
+        }
+
+        .bit-inner {
+          position: relative;
+          display: flex;
+          flex-flow: row nowrap;
+          padding: 0.5rem;
+          background: rgb(var(--color-bg));
+          border-radius: 0.25rem;
+          border: 1px solid rgba(var(--color-highlight), 0.25);
+          z-index: 2;
+          line-height: 1.25;
+        }
+
+        .bit-info {
+          position: absolute;
+          top: calc(100% + 2px);
+          right: 0.75rem;
+          max-width: 100%;
+          background: rgb(var(--color-text));
+          color: rgb(var(--color-bg));
+          font-size: 0.75rem;
+          padding: 0 0.25rem;
+          transform: translateY(calc(-100% - 2px));
+          animation: slideInTop 0.15s ease-in-out forwards 0.3s;
+          z-index: 1;
         }
 
         .bit-content {
@@ -29,6 +82,17 @@ function BaseBit ({ icon, children, data, title }) {
         .bit-link {
           text-decoration-style: dotted;
           text-decoration-skip-ink: all;
+        }
+
+  
+        @keyframes slideInTop {
+          from {
+            transform: translateY(calc(-100% - 2px));
+          }
+
+          to {
+            transform: translateY(0);
+          }
         }
 
         @keyframes fadeInLeft {
@@ -49,19 +113,55 @@ function BaseBit ({ icon, children, data, title }) {
 }
 
 function GithubBit ({ bit }) {
-  return <BaseBit icon={faGithub} {...bit}>Starred</BaseBit>
+  return (
+    <BaseBit
+      icon={faGithub}
+      info={getFormattedDate(bit.data.starredAt)}
+      {...bit}
+    >
+      Starred
+    </BaseBit>
+  )
 }
 
 function LastFmArtistBit ({ bit }) {
-  return <BaseBit icon={faAlbum} {...bit}>Listening to</BaseBit>
+  const plays = bit.data.plays
+  return (
+    <BaseBit
+      icon={faAlbum}
+      info={`${plays} plays recently`}
+      {...bit}
+    >
+      Listening to
+    </BaseBit>
+  )
 }
 
 function LastFmTrackBit ({ bit }) {
-  return <BaseBit icon={faRepeat} {...bit}>Obsessed with</BaseBit>
+  const plays = bit.data.plays
+  return (
+    <BaseBit
+      icon={faRepeat}
+      info={`${plays} plays recently`}
+      {...bit}
+    >
+      On repeat:
+    </BaseBit>
+  )
 }
 
 function SteamBit ({ bit }) {
-  return <BaseBit icon={faGamepad} {...bit}>Playing</BaseBit>
+  const hours = (Number.parseInt(bit.data.minutesPlayed) / 60).toPrecision(1)
+
+  return (
+    <BaseBit
+      icon={faGamepad}
+      info={`${hours}h recently`}
+      {...bit}
+    >
+      Playing
+    </BaseBit>
+  )
 }
 
 function LetterboxdBit ({ bit }) {
@@ -71,21 +171,18 @@ function LetterboxdBit ({ bit }) {
     if (rating > 4) return 'Loved'
     if (rating >= 3.5) return 'Liked'
     if (rating === 3) return 'Enjoyed'
-    if (rating >= 2) return 'Disliked'
-    return 'Hated'
+    return 'Disliked'
   }
 
   const verb = getVerb()
 
   return (
     <BaseBit
-      icon={faPopcorn}
       {...bit}
-      title={bit.data.year
-        ? `${bit.data.title} (${bit.data.year})`
-        : bit.data.title}
+      icon={faPopcorn}
+      info={getFormattedDate(bit.data.watchedAt, 'on ')}
     >
-      {verb ? `Watched & ${verb}` : 'Watched'}
+      {verb ?? 'Watched'}
     </BaseBit>
   )
 }
@@ -96,7 +193,18 @@ function TraktBit ({ bit }) {
     return 'Watching'
   }
 
-  return <BaseBit icon={faTvRetro} {...bit}>{getVerb()}</BaseBit>
+  const season = bit.data.seasons
+    .sort((a, b) => a - b)[0]
+
+  return (
+    <BaseBit
+      icon={faTvRetro}
+      info={`Season ${season}`}
+      {...bit}
+    >
+      {getVerb()}
+    </BaseBit>
+  )
 }
 
 export function Bit ({ bit }) {
