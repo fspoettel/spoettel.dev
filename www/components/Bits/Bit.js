@@ -18,13 +18,18 @@ function BaseBit ({
   info,
   children,
   data,
-  title
+  title,
+  onTransitionEnd,
+  visible
 }) {
   const linkTitle = title || data.title
 
   return (
     <div className='bit-container'>
-      <div className='bit'>
+      <div
+        className={visible ? 'bit bit_visible' : 'bit'}
+        onTransitionEnd={onTransitionEnd}
+      >
         <div className='bit-inner'>
           <FontAwesomeIcon className='icon-size' icon={icon} />
           <span className='bit-content'>{children}&nbsp;<a className='bit-link' href={data.url} target='_blank' rel='noopener noreferrer'>{linkTitle}</a></span>
@@ -45,8 +50,14 @@ function BaseBit ({
 
         .bit {
           position: relative;
-          animation: fadeInLeft 0.3s ease-in-out forwards;
           text-transform: lowercase;
+          transform: translateX(calc(-100% - 2rem));
+          transition: 0.3s transform ease-in-out 0.15s;
+        }
+
+        .bit_visible {
+          transform: none;
+          transition: 0.3s transform ease-in-out;
         }
 
         .bit-inner {
@@ -71,8 +82,13 @@ function BaseBit ({
           font-size: 0.75rem;
           padding: 0 0.25rem;
           transform: translateY(calc(-100% - 2px));
-          animation: slideInTop 0.15s ease-in-out forwards 0.3s;
+          transition: 0.15s transform ease-in-out;
           z-index: 1;
+        }
+
+        .bit_visible .bit-info {
+          transform: none;
+          transition: 0.15s transform ease-in-out 0.3s;
         }
 
         .bit-content {
@@ -83,74 +99,54 @@ function BaseBit ({
           text-decoration-style: dotted;
           text-decoration-skip-ink: all;
         }
-
-  
-        @keyframes slideInTop {
-          from {
-            transform: translateY(calc(-100% - 2px));
-          }
-
-          to {
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fadeInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(calc(-100% + 2rem));
-          }
-
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
       `}
       </style>
     </div>
   )
 }
 
-function GithubBit ({ bit }) {
+function GithubBit ({ bit, ...rest }) {
   return (
     <BaseBit
       icon={faGithub}
       info={getFormattedDate(bit.data.starredAt)}
       {...bit}
+      {...rest}
     >
       Starred
     </BaseBit>
   )
 }
 
-function LastFmArtistBit ({ bit }) {
+function LastFmArtistBit ({ bit, ...rest }) {
   const plays = bit.data.plays
   return (
     <BaseBit
       icon={faAlbum}
       info={`${plays} plays recently`}
       {...bit}
+      {...rest}
     >
       Listening to
     </BaseBit>
   )
 }
 
-function LastFmTrackBit ({ bit }) {
+function LastFmTrackBit ({ bit, ...rest }) {
   const plays = bit.data.plays
   return (
     <BaseBit
       icon={faRepeat}
       info={`${plays} plays recently`}
       {...bit}
+      {...rest}
     >
       On repeat:
     </BaseBit>
   )
 }
 
-function SteamBit ({ bit }) {
+function SteamBit ({ bit, ...rest }) {
   const hours = (Number.parseInt(bit.data.minutesPlayed) / 60).toPrecision(1)
 
   return (
@@ -158,13 +154,14 @@ function SteamBit ({ bit }) {
       icon={faGamepad}
       info={`${hours}h recently`}
       {...bit}
+      {...rest}
     >
       Playing
     </BaseBit>
   )
 }
 
-function LetterboxdBit ({ bit }) {
+function LetterboxdBit ({ bit, ...rest }) {
   function getVerb () {
     const { rating } = bit.data
     if (Number.isNaN()) return null
@@ -178,41 +175,42 @@ function LetterboxdBit ({ bit }) {
 
   return (
     <BaseBit
-      {...bit}
       icon={faPopcorn}
       info={getFormattedDate(bit.data.watchedAt, 'on ')}
+      {...bit}
+      {...rest}
     >
       {verb ?? 'Watched'}
     </BaseBit>
   )
 }
 
-function TraktBit ({ bit }) {
+function TraktBit ({ bit, ...rest }) {
   function getVerb () {
     if (bit.data.seasons.length > 1 || bit.data.episodes.length > 15) return 'Binging'
     return 'Watching'
   }
 
-  const season = bit.data.seasons
-    .sort((a, b) => a - b)[0]
+  const season = bit.data.seasons.sort((a, b) => a - b)[0]
 
   return (
     <BaseBit
       icon={faTvRetro}
       info={`Season ${season}`}
       {...bit}
+      {...rest}
     >
       {getVerb()}
     </BaseBit>
   )
 }
 
-export function Bit ({ bit }) {
-  if (bit.type === 'github_star') return <GithubBit bit={bit} />
-  if (bit.type === 'steam_playing') return <SteamBit bit={bit} />
-  if (bit.type === 'letterboxd_watch') return <LetterboxdBit bit={bit} />
-  if (bit.type === 'lastfm_artist') return <LastFmArtistBit bit={bit} />
-  if (bit.type === 'lastfm_track') return <LastFmTrackBit bit={bit} />
-  if (bit.type === 'trakt_watching') return <TraktBit bit={bit} />
+export function Bit ({ bit, ...rest }) {
+  if (bit.type === 'github_star') return <GithubBit bit={bit} {...rest} />
+  if (bit.type === 'steam_playing') return <SteamBit bit={bit} {...rest} />
+  if (bit.type === 'letterboxd_watch') return <LetterboxdBit bit={bit} {...rest} />
+  if (bit.type === 'lastfm_artist') return <LastFmArtistBit bit={bit} {...rest} />
+  if (bit.type === 'lastfm_track') return <LastFmTrackBit bit={bit} {...rest} />
+  if (bit.type === 'trakt_watching') return <TraktBit bit={bit} {...rest} />
   return null
 }

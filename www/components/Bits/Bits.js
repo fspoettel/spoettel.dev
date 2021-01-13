@@ -12,37 +12,58 @@ export function Bits ({
   const [state, setBitState] = useState({
     bit: initialBit,
     id: initialBit.data.id,
-    history: [initialBit.data.id]
+    history: [initialBit.data.id],
+    visible: false
   })
 
   const timeoutRef = useRef(null)
+  const nextBit = useRef(null)
 
-  useEffect(() => {
-    let effectState = state
+  const setInvisible = () => {
+    setBitState(currentState => ({ ...currentState, visible: false }))
+  }
 
-    const setRandomBit = () => {
-      const bit = getRandomBit(bits, effectState.history)
+  const setVisible = () => {
+    setBitState(currentState => ({ ...currentState, visible: true }))
+  }
+
+  const onVisibilitySwitch = (evt) => {
+    if (evt.target !== evt.currentTarget) return
+
+    if (state.visible) {
+      const bit = getRandomBit(bits, state.history)
       if (!bit) return
 
+      nextBit.current = bit
+      timeoutRef.current = setTimeout(setInvisible, 4500)
+    } else {
+      const bit = nextBit.current
       setBitState(currentState => {
         const nextState = {
           bit,
           id: bit.data.id,
-          history: [...currentState.history, bit.data.id]
+          history: [...currentState.history, bit.data.id],
+          visible: false
         }
-        effectState = nextState
+
         return nextState
       })
 
-      timeoutRef.current = setTimeout(setRandomBit, 5000)
+      timeoutRef.current = setTimeout(setVisible, 0)
     }
+  }
 
-    timeoutRef.current = setTimeout(setRandomBit, 5000)
-
-    return () => {
-      clearTimeout(timeoutRef.current)
-    }
+  useEffect(() => {
+    setVisible()
+    return () => { clearTimeout(timeoutRef) }
   }, [bits])
 
-  return <Bit bit={state.bit} key={state.id} />
+  return (
+    <Bit
+      bit={state.bit}
+      key={state.id}
+      onTransitionEnd={onVisibilitySwitch}
+      visible={state.visible}
+    />
+  )
 }
