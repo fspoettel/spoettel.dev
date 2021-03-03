@@ -157,7 +157,7 @@ function LastFmTrackBit ({ bit, ...rest }) {
 }
 
 function SteamBit ({ bit, ...rest }) {
-  const hours = (Number.parseInt(bit.data.minutesPlayed) / 60).toPrecision(1)
+  const hours = (Number.parseInt(bit.data.minutesPlayed, 10) / 60).toFixed(1)
 
   return (
     <BaseBit
