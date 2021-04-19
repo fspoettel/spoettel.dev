@@ -43,7 +43,6 @@ function toBitTraktWatch (watch) {
   return {
     type: 'trakt_watching',
     data: {
-      episodes: [watch.episode?.number],
       seasons: [watch.episode?.season],
       id: watch.show.ids.trakt,
       title: watch.show.title,
@@ -80,14 +79,10 @@ module.exports = async function getBits () {
           ...(curr ?? {}),
           data: {
             ...curr.data,
-            episodes: uniq([
-              ...(current?.data.episodes ?? []),
-              ...curr.data.episodes
-            ]),
             seasons: uniq([
               ...(current?.data.seasons ?? []),
               ...curr.data.seasons
-            ])
+            ]).sort((a, b) => a - b)
           }
         }
       }

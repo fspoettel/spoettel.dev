@@ -196,17 +196,25 @@ function LetterboxdBit ({ bit, ...rest }) {
 }
 
 function TraktBit ({ bit, ...rest }) {
+  const { seasons } = bit.data
+
+  const hasMultipleSeasons = seasons.length > 1
+
   function getVerb () {
-    if (bit.data.seasons.length > 1 || bit.data.episodes.length > 15) return 'Binging'
+    if (hasMultipleSeasons) return 'Binging'
     return 'Watching'
   }
 
-  const season = bit.data.seasons.sort((a, b) => a - b)[0]
+  const latestSeason = seasons[seasons.length - 1]
+
+  const info = hasMultipleSeasons
+    ? `Seasons ${seasons[0]} - ${latestSeason}`
+    : `Season ${latestSeason}`
 
   return (
     <BaseBit
       icon={faTvRetro}
-      info={`Season ${season}`}
+      info={info}
       {...bit}
       {...rest}
     >
