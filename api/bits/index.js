@@ -1,15 +1,12 @@
 const debug = require('debug')('app:bits')
 const Cache = require('../lib/cache')
 const getGithubStars = require('./github')
-const {
-  getTopArtistBits,
-  getTopTrackBits
-} = require('./lastfm')
+const { getTopArtistBits, getTopTrackBits } = require('./lastfm')
 const getLetterboxdWatchedBits = require('./letterboxd')
 const getSteamPlayingBits = require('./steam')
 const getTraktWatchingBits = require('./trakt')
 
-const bitMapping = {
+const BIT_MAPPING = {
   letterboxd_watch: getLetterboxdWatchedBits,
   lastfm_artist: getTopArtistBits,
   lastfm_track: getTopTrackBits,
@@ -40,7 +37,7 @@ async function retrieveBits ({ isForced = false } = {}) {
   debug('starting retrieve for all types')
 
   const results = await Promise.allSettled(
-    Object.entries(bitMapping).map(([key, value]) => retrieveBitsForType(key, value, { isForced }))
+    Object.entries(BIT_MAPPING).map(([key, value]) => retrieveBitsForType(key, value, { isForced }))
   )
 
   const bits = []
@@ -57,4 +54,8 @@ async function retrieveBits ({ isForced = false } = {}) {
   return bits.reduce((acc, curr) => ({ ...acc, ...curr }), {})
 }
 
-module.exports = retrieveBits
+module.exports = {
+  BIT_MAPPING,
+  retrieveBits,
+  retrieveBitsForType
+}
