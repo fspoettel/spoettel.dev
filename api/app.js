@@ -1,6 +1,7 @@
 const express = require('express')
 const helmet = require('helmet')
 const { BIT_MAPPING, retrieveBits, retrieveBitsForType } = require('./bits')
+const { errorHandler } = require('./lib/errors')
 const { asyncHandler, randomInt } = require('./lib/helpers')
 const schedule = require('./lib/schedule')
 
@@ -31,6 +32,8 @@ app.get('/api/bits/:type', asyncHandler(async (req, res) => {
   const bits = await retrieveBitsForType(type, BIT_MAPPING[type], { isForced: false })
   return res.json(bits[type])
 }))
+
+app.use(errorHandler)
 
 schedule(4 * 60 * 60 * 1000, () => retrieveBits({ isForced: true }))
 
