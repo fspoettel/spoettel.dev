@@ -93,7 +93,7 @@ module.exports = {
       apiKey: process.env.LASTFM_API_KEY,
       user: process.env.LASTFM_USER,
       period: '1month'
-    }, 5)
+    }, 3)
 
     return artists.map(toBitLastFmArtist)
   },
@@ -102,7 +102,7 @@ module.exports = {
       apiKey: process.env.LASTFM_API_KEY,
       user: process.env.LASTFM_USER,
       period: '1month'
-    }, 5)
+    }, 3)
 
     return tracks.map(toBitLastFmTrack)
   }
