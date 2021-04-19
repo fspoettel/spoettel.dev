@@ -6,13 +6,14 @@ const firstName = 'Felix'
 const lastName = 'Spöttel'
 
 export const name = `${firstName} ${lastName}`
-export const title = 'Software Developer'
+export const title = 'wrangling bits'
 
-const location = 'Berlin'
+const email = 'felix@spoet.tel'
 
 export const description = `Personal website of ${name}.`
-export const ogDescription = `Hey there, I'm ${firstName}! 👋 ` +
-  `I live in ${location} and am interested in music, code and tinkering.`
+export const ogDescription = `Hey there, I'm ${firstName}! ` +
+  'I\'m a Berlin-based software developer interested in the www, music & micro controllers. ' +
+  `Reach me via ${email}.`
 
 export const url = 'https://spoettel.dev'
 
@@ -23,7 +24,7 @@ export const company = {
 
 export const links = [
   {
-    href: 'mailto://felix@spoet.tel',
+    href: `mailto://${email}`,
     title: 'Email',
     icon: faAt
   },
