@@ -1,13 +1,13 @@
 // import App from 'next/app'
 
-import 'sanitize.css'
-import '@fortawesome/fontawesome-svg-core/styles.css' // Import the CSS
+import 'sanitize.css';
+import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the CSS
 
-import { config } from '@fortawesome/fontawesome-svg-core'
-config.autoAddCss = false
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false;
 
-function MyApp ({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />;
 }
 
 // Only uncomment this method if you have blocking data requirements for
@@ -22,4 +22,4 @@ function MyApp ({ Component, pageProps }) {
 //   return { ...appProps }
 // }
 
-export default MyApp
+export default MyApp;

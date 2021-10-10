@@ -1,10 +1,9 @@
 {
+  "name": "@spoetteldev/workspace",
   "private": true,
   "scripts": {
-    "lint": "standard",
+    "format": "(cd api && yarn format) && (cd www && yarn format)",
+    "lint": "(cd api && yarn lint) && (cd www && yarn lint)",
     "dev": "(cd api && yarn dev) & (cd www && yarn dev)"
-  },
-  "devDependencies": {
-    "standard": "^14.3.4"
   }
 }

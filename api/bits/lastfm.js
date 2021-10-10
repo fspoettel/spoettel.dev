@@ -1,10 +1,10 @@
-const got = require('got')
-const snakeCase = require('lodash.snakecase')
-const { NotFoundError } = require('../lib/errors')
+const got = require('got');
+const snakeCase = require('lodash.snakecase');
+const { NotFoundError } = require('../lib/errors');
 
-const BASE_URL = 'https://ws.audioscrobbler.com/2.0/'
+const BASE_URL = 'https://ws.audioscrobbler.com/2.0/';
 
-function makeLastFmRequest (method, user, query) {
+function makeLastFmRequest(method, user, query) {
   return got(BASE_URL, {
     resolveBodyOnly: true,
     responseType: 'json',
@@ -13,68 +13,68 @@ function makeLastFmRequest (method, user, query) {
       api_key: query.apiKey,
       format: 'json',
       user,
-      ...query
-    }
-  })
+      ...query,
+    },
+  });
 }
 
-async function getTopArtists ({ apiKey, user, period }, limit) {
-  let artists = []
+async function getTopArtists({ apiKey, user, period }, limit) {
+  let artists = [];
 
   try {
     const res = await makeLastFmRequest('user.gettopartists', user, {
       apiKey,
       limit,
-      period
-    })
-    artists = res.topartists.artist
+      period,
+    });
+    artists = res.topartists.artist;
   } catch (err) {
     if (err instanceof got.HTTPError && err.response.statusCode === 404) {
-      throw new NotFoundError(`user ${user} does not appear to be a valid last.fm user.`)
+      throw new NotFoundError(`user ${user} does not appear to be a valid last.fm user.`);
     } else {
-      throw err
+      throw err;
     }
   }
 
-  return artists
+  return artists;
 }
 
-async function getTopTracks ({ apiKey, user, period }, limit) {
-  let tracks = []
+async function getTopTracks({ apiKey, user, period }, limit) {
+  let tracks = [];
 
   try {
     const res = await makeLastFmRequest('user.gettoptracks', user, {
       apiKey,
       limit,
-      period
-    })
+      period,
+    });
 
-    tracks = res.toptracks.track
+    tracks = res.toptracks.track;
   } catch (err) {
     if (err instanceof got.HTTPError && err.response.statusCode === 404) {
-      throw new NotFoundError(`user ${user} does not appear to be a valid last.fm user.`)
+      throw new NotFoundError(`user ${user} does not appear to be a valid last.fm user.`);
     } else {
-      throw err
+      throw err;
     }
   }
 
-  return tracks
+  return tracks;
 }
 
-function toBitLastFmArtist (data) {
+function toBitLastFmArtist(data) {
   return {
     type: 'lastfm_artist',
     data: {
       id: data.mbid || snakeCase(data.name),
       url: data.url,
       plays: data.playcount,
-      title: data.name
-    }
-  }
+      title: data.name,
+    },
+  };
 }
 
-function toBitLastFmTrack (track) {
-  const title = `${track.artist.name} - ${track.name}`
+function toBitLastFmTrack(track) {
+  const title = `${track.artist.name} - ${track.name}`;
 
   return {
     type: 'lastfm_track',
@@ -82,28 +82,34 @@ function toBitLastFmTrack (track) {
       id: track.mbid || snakeCase(title),
       title,
       url: track.url,
-      plays: track.playcount
-    }
-  }
+      plays: track.playcount,
+    },
+  };
 }
 
 module.exports = {
-  async getTopArtistBits () {
-    const artists = await getTopArtists({
-      apiKey: process.env.LASTFM_API_KEY,
-      user: process.env.LASTFM_USER,
-      period: '1month'
-    }, 3)
+  async getTopArtistBits() {
+    const artists = await getTopArtists(
+      {
+        apiKey: process.env.LASTFM_API_KEY,
+        user: process.env.LASTFM_USER,
+        period: '1month',
+      },
+      3,
+    );
 
-    return artists.map(toBitLastFmArtist)
+    return artists.map(toBitLastFmArtist);
   },
-  async getTopTrackBits () {
-    const tracks = await getTopTracks({
-      apiKey: process.env.LASTFM_API_KEY,
-      user: process.env.LASTFM_USER,
-      period: '1month'
-    }, 3)
+  async getTopTrackBits() {
+    const tracks = await getTopTracks(
+      {
+        apiKey: process.env.LASTFM_API_KEY,
+        user: process.env.LASTFM_USER,
+        period: '1month',
+      },
+      3,
+    );
 
-    return tracks.map(toBitLastFmTrack)
-  }
-}
+    return tracks.map(toBitLastFmTrack);
+  },
+};

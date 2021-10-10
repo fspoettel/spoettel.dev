@@ -1,16 +1,17 @@
-import React from 'react'
+import React from 'react';
 export const Portrait = ({ name, size }) => {
   return (
-    <div className='portrait'>
+    <div className="portrait">
       <picture>
-        <source srcSet='/assets/optimized/portrait.webp' type='image/webp' />
+        <source srcSet="/assets/optimized/portrait.webp" type="image/webp" />
         <img
-          className='portrait-image u-photo'
-          src='/assets/optimized/portrait.jpg'
+          className="portrait-image u-photo"
+          src="/assets/optimized/portrait.jpg"
           alt={`Portrait of ${name}`}
         />
       </picture>
-      <style jsx>{`
+      <style jsx>
+        {`
         .portrait-image {
           position: absolute;
           z-index: 2;
@@ -100,14 +101,15 @@ export const Portrait = ({ name, size }) => {
         }
       `}
       </style>
-      <style jsx>{`
-        .portrait {
-          height: ${size};
-          width: ${size};
-          margin: 2rem;
-        }
-      `}
+      <style jsx>
+        {`
+          .portrait {
+            height: ${size};
+            width: ${size};
+            margin: 2rem;
+          }
+        `}
       </style>
     </div>
-  )
-}
+  );
+};
