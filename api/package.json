@@ -1,25 +1,30 @@
 {
-  "name": "api",
+  "name": "@spoetteldev/api",
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": "15.x"
+    "node": "14.x"
   },
   "engineStrict": true,
   "scripts": {
     "dev": "nodemon server",
+    "format": "prettier --write .",
+    "lint": "eslint .",
     "start": "node server"
   },
   "dependencies": {
-    "debug": "^4.3.1",
-    "dotenv": "^8.2.0",
+    "debug": "^4.3.2",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "feedparser": "^2.2.10",
     "got": "^11.8.2",
-    "helmet": "^4.5.0",
+    "helmet": "^4.6.0",
     "lodash.snakecase": "^4.1.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "eslint": "^8.0.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.13",
+    "prettier": "^2.4.1"
   }
 }

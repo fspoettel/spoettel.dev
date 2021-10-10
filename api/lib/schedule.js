@@ -1,13 +1,15 @@
-const debug = require('debug')('app:schedule')
+const debug = require('debug')('app:schedule');
 
-function schedule (interval, task) {
+function schedule(interval, task) {
   const invoke = () => {
-    debug('running scheduled task')
-    task().catch((err) => { console.err(err) })
-    setTimeout(invoke, interval)
-  }
+    debug('running scheduled task');
+    task().catch((err) => {
+      console.err(err);
+    });
+    setTimeout(invoke, interval);
+  };
 
-  invoke()
+  invoke();
 }
 
-module.exports = schedule
+module.exports = schedule;
