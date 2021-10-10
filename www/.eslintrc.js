@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['../.eslintrc.js', 'next'],
+  extends: ['../.eslintrc.js', 'prettier', 'next'],
   rules: {
     '@next/next/no-img-element': 'off',
   },
