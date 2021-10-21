@@ -50,8 +50,24 @@ export default function Home(props) {
         <link href={fontUrl} rel="stylesheet" type="text/css" />
       </Head>
 
-      <Hero activeTheme={activeTheme} setTheme={setTheme} {...props} />
+      <div className='hero-container'>
+        <Hero
+          activeTheme={activeTheme}
+          setTheme={setTheme}
+          {...props}
+        />
+      </div>
+
+      <div className='wave-container'></div>
+
       <MouseTrail />
+
+      <article className='mixtapes-container'>
+        <header className='mixtapes-header'>
+          <h2 className='mixtapes-title'>Mixtapes</h2>
+        </header>
+        <iframe src="https://stakk.ltd/felix?embed" loading="lazy" />
+      </article>
 
       <style jsx global>
         {`
@@ -121,8 +137,50 @@ export default function Home(props) {
             height: 1em;
           }
 
-          .container {
+          .hero-container {
             position: relative;
+            z-index: 1;
+          }
+
+          .mixtapes-container {
+            background-color: #ffd700;
+            color: rgb(4, 4, 4);
+            padding-top: 1.5rem;
+            z-index: 2;
+            position: relative;
+          }
+
+          .mixtapes-header {
+            padding: 0 1.5rem;
+          }
+
+          .mixtapes-title {
+            font-size: 2.75rem;
+          }
+
+          .mixtapes-container iframe {
+            width: 100%;
+            height: 100vh;
+            border:none;
+            display: block;
+            margin: 0;
+          }
+
+          .wave-container {
+            position: relative;
+          }
+          
+          .wave-container::before {
+            content: "";
+            width: 100%;
+            height: 57px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-size: auto;
+            background-repeat: repeat no-repeat;
+            background-position: 10vw bottom;
+            background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 134' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 22L33 19C82 13 133 14 200 29C267 44 333 67 400 70C467 74 533 59 600 40C667 22 733 0 800 0C867 0 933 22 1000 29C1067 37 1133 29 1167 26L1200 22V134H1167C1133 134 1067 134 1000 134C933 134 867 134 800 134C733 134 667 134 600 134C533 134 467 134 400 134C333 134 267 134 200 134C133 134 67 134 33 134H0V22.332Z' fill='%23FFD700'/></svg>");
           }
         `}
       </style>

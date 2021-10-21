@@ -30,7 +30,7 @@ export function MouseTrail() {
       const addPoint = (x, y) => {
         pointsRef.current.push(new Point(x, y));
       };
-      addPoint(clientX - canvas.offsetLeft, clientY - canvas.offsetTop);
+      addPoint(clientX - canvas.offsetLeft, clientY - canvas.offsetTop + window.scrollY);
     }
 
     function start() {
@@ -98,6 +98,7 @@ export function MouseTrail() {
             top: 0;
             left: 0;
             z-index: 1;
+            pointer-events: none;
           }
         `}
       </style>
