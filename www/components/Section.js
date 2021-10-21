@@ -1,8 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
-export const Section = ({ content, full, children }) => (
-  <section className={cx('section', { section_full: full })}>
+export const Section = ({ content, height, children }) => (
+  <section className={cx('section', { section_full: height })}>
     {children && <div className="section-children">{children}</div>}
     <div className="section-content">{content}</div>
     <style jsx scoped>
@@ -16,7 +16,7 @@ export const Section = ({ content, full, children }) => (
         .section_full {
           display: flex;
           flex-flow: column nowrap;
-          min-height: 100vh;
+          min-height: ${height};
         }
 
         .section_full > * {

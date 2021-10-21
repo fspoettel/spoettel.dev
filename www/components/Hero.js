@@ -35,7 +35,7 @@ export function Hero(props) {
 
   return (
     <Section
-      full
+      height='calc(100vh - 0.5rem)'
       content={
         <div className={heroCx}>
           <header className={heroHeaderCx}>
