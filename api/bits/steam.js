@@ -1,5 +1,4 @@
 const got = require('got');
-const { NotFoundError } = require('../lib/errors');
 
 const BASE_URL = 'https://api.steampowered.com';
 
@@ -16,9 +15,7 @@ async function getRecentlyPlayedGames(config, limit) {
   });
 
   if (res.response?.total_count === 0 || res.response?.games == null) {
-    throw new NotFoundError(
-      `user ${config.steamId} does not exist or has not played any games recently`,
-    );
+    return [];
   }
 
   return res.response.games;
