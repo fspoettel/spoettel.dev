@@ -35,7 +35,7 @@ export const links = [
     icon: faGithub,
   },
   {
-    href: 'https://last.fm/user/spoeti',
+    href: 'https://last.fm/user/otiswedding',
     title: 'Last.fm',
     icon: faLastfm,
   },
