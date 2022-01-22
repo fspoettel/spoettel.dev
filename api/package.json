@@ -2,15 +2,11 @@
   "name": "@spoetteldev/api",
   "version": "1.0.0",
   "private": true,
-  "engines": {
-    "node": "14.x"
-  },
-  "engineStrict": true,
   "scripts": {
-    "dev": "nodemon server",
+    "dev": "nodemon server.js",
     "format": "prettier --write .",
     "lint": "eslint .",
-    "start": "node server"
+    "start": "node server.js"
   },
   "dependencies": {
     "debug": "^4.3.2",
