@@ -75,7 +75,7 @@ function BaseBit({ icon, info, children, data, title, onTransitionEnd, visible }
             align-items: flex-start;
             padding: 0.5rem;
             background: rgb(var(--color-bg));
-            border-radius: 0.25rem;
+            border-radius: 0.125rem;
             border: 1px solid rgba(var(--color-highlight), 0.25);
             z-index: 2;
             line-height: 1.25;

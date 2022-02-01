@@ -49,6 +49,7 @@ export const Button = ({ className, href, icon, title, ...rest }) => {
             position: relative;
             padding: 0.5rem 1.25rem;
             font-size: 1rem;
+            line-height: 1.25;
             background-color: rgb(var(--color-bg));
             text-decoration: none;
             text-align: center;
