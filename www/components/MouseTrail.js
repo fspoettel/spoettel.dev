@@ -27,6 +27,8 @@ export function MouseTrail() {
 
     function onMousemove({ clientX, clientY }) {
       const canvas = canvasRef.current;
+      if (!canvas) return;
+
       const addPoint = (x, y) => {
         pointsRef.current.push(new Point(x, y));
       };
@@ -35,6 +37,8 @@ export function MouseTrail() {
 
     function start() {
       const canvas = canvasRef.current;
+      if (!canvas) return;
+
       const points = pointsRef.current;
       const ctx = canvas.getContext('2d');
 
@@ -79,6 +83,7 @@ export function MouseTrail() {
     }
 
     onResize();
+
     window.addEventListener('resize', onResize, false);
     if (window.matchMedia('(pointer:fine)').matches) start();
 
