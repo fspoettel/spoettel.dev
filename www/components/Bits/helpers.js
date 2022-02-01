@@ -6,6 +6,10 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+export function getBitCount(bits) {
+  return Object.values(bits).reduce((acc, curr) => acc + curr.length, 0);
+}
+
 export function getRandomBit(bits, history) {
   const filteredBits = Object.entries(bits).reduce((acc, [cat, bits]) => {
     const currentBits = bits.filter((b) => {

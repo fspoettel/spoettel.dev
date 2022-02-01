@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Bit } from './Bit';
 import { getBit, getRandomBit } from './helpers';
 
-export function Bits({ bits, initialCatId, initialBitId }) {
+export function Bits({ bits, bitCount, initialCatId, initialBitId }) {
   const initialBit = getBit(bits, initialCatId, initialBitId);
 
   const [state, setBitState] = useState({
@@ -12,55 +12,53 @@ export function Bits({ bits, initialCatId, initialBitId }) {
     visible: false,
   });
 
-  const timeoutRef = useRef(null);
-  const nextBit = useRef(null);
+  const updateTimeout = useRef(null);
 
-  const setInvisible = () => {
-    setBitState((currentState) => ({ ...currentState, visible: false }));
+  const cancelUpdate = () => {
+    clearTimeout(updateTimeout.current);
   };
 
-  const setVisible = () => {
-    setBitState((currentState) => ({ ...currentState, visible: true }));
-  };
-
-  const onVisibilitySwitch = (evt) => {
-    if (evt.target !== evt.currentTarget) return;
-
+  const scheduleUpdate = (msUntilHide) => {
     if (state.visible) {
-      const bit = getRandomBit(bits, state.history);
-      if (!bit) return;
+      if (state.history.length === bitCount) {
+        cancelUpdate();
+        return;
+      }
 
-      nextBit.current = bit;
-      timeoutRef.current = setTimeout(setInvisible, 4500);
+      updateTimeout.current = setTimeout(() => {
+        setBitState(s => ({ ...s, visible: false }));
+      }, msUntilHide);
     } else {
-      const bit = nextBit.current;
-      setBitState((currentState) => {
-        const nextState = {
-          bit,
-          id: bit.data.id,
-          history: [...currentState.history, bit.data.id],
-          visible: false,
-        };
+      const nextBit = getRandomBit(bits, state.history);
 
-        return nextState;
-      });
+      setBitState(s => ({
+        ...s,
+        bit: nextBit,
+        id: nextBit.data.id,
+        history: [...s.history, nextBit.data.id],
+      }));
 
-      timeoutRef.current = setTimeout(setVisible, 0);
+      setTimeout(() => {
+        setBitState(s => ({...s, visible: true }));
+      }, 0);
+
     }
   };
 
   useEffect(() => {
-    setVisible();
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, [bits]);
+    setBitState(s => ({ ...s, visible: true }));
+  }, []);
 
   return (
     <Bit
       bit={state.bit}
       key={state.id}
-      onTransitionEnd={onVisibilitySwitch}
+      onMouseEnter={cancelUpdate}
+      onMouseLeave={() => { scheduleUpdate(500) }}
+      onTransitionEnd={(evt) => {
+        if (evt.target !== evt.currentTarget) return;
+        scheduleUpdate(5000);
+      }}
       visible={state.visible}
     />
   );

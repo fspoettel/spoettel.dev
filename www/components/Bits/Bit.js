@@ -27,12 +27,27 @@ function getFormattedDate(val, prefix = 'on ') {
   }
 }
 
-function BaseBit({ icon, info, children, data, title, onTransitionEnd, visible }) {
+function BaseBit({
+  children,
+  data,
+  icon,
+  info,
+  onMouseEnter,
+  onMouseLeave,
+  onTransitionEnd,
+  title,
+  visible
+}) {
   const linkTitle = title || data.title;
 
   return (
     <div className="bit-container">
-      <div className={cx('bit', { bit_visible: visible })} onTransitionEnd={onTransitionEnd}>
+      <div
+        className={cx('bit', { bit_visible: visible })}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onTransitionEnd={onTransitionEnd}
+      >
         <div className="bit-inner">
           <FontAwesomeIcon className={cx('icon-size', iconCx)} icon={icon} />
           <span className="bit-content">

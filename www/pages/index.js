@@ -4,7 +4,7 @@ import { description, name, ogDescription, title, url } from 'constants/data';
 import { Hero } from 'components/Hero';
 import { MouseTrail } from 'components/MouseTrail';
 import apiService from 'lib/apiService';
-import { getRandomBit } from 'components/Bits/helpers';
+import { getBitCount, getRandomBit } from 'components/Bits/helpers';
 
 export async function getServerSideProps() {
   try {
@@ -14,6 +14,7 @@ export async function getServerSideProps() {
     return {
       props: {
         bits,
+        bitCount: getBitCount(bits),
         bitId: randomBit.data.id,
         catId: randomBit.type,
       },

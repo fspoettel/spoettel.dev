@@ -22,7 +22,7 @@ const { className: heroHeaderCx, styles: heroHeaderStyles } = css.resolve`
 `;
 
 export function Hero(props) {
-  const { activeTheme, setTheme, bits, bitId, catId } = props;
+  const { activeTheme, setTheme, bits, bitCount, bitId, catId } = props;
 
   const onToggleTheme = useCallback(() => {
     setTheme((t) => {
@@ -49,7 +49,12 @@ export function Hero(props) {
       <aside className="hero-row">
         {bits && (
           <div className="hero-bit">
-            <Bits bits={bits} initialCatId={catId} initialBitId={bitId} />
+            <Bits
+              bits={bits}
+              bitCount={bitCount}
+              initialCatId={catId}
+              initialBitId={bitId}
+            />
           </div>
         )}
         <div className="hero-actions">
