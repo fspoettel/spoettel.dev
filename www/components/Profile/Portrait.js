@@ -15,14 +15,13 @@ export const Portrait = ({ name, size }) => {
         .portrait-image {
           position: absolute;
           z-index: 2;
-          top: 25%;
-          left: 25%;
-          width: 50%;
-          height: 50%;
+          top: 12.5%;
+          left: 12.5%;
+          width: 75%;
+          height: 75%;
           object-fit: cover;
           object-position: center;
           border-radius: 50%;
-          filter: brightness(1.05) contrast(1.2) grayscale(1);
         }
 
         .portrait {

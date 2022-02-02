@@ -35,7 +35,7 @@ export function Hero(props) {
 
   return (
     <Section
-      height='calc(100vh - 0.5rem)'
+      height="calc(100vh - 0.5rem)"
       content={
         <div className={heroCx}>
           <header className={heroHeaderCx}>
@@ -49,12 +49,7 @@ export function Hero(props) {
       <aside className="hero-row">
         {bits && (
           <div className="hero-bit">
-            <Bits
-              bits={bits}
-              bitCount={bitCount}
-              initialCatId={catId}
-              initialBitId={bitId}
-            />
+            <Bits bits={bits} bitCount={bitCount} initialCatId={catId} initialBitId={bitId} />
           </div>
         )}
         <div className="hero-actions">

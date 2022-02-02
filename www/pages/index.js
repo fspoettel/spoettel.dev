@@ -5,6 +5,7 @@ import { Hero } from 'components/Hero';
 import { MouseTrail } from 'components/MouseTrail';
 import apiService from 'lib/apiService';
 import { getBitCount, getRandomBit } from 'components/Bits/helpers';
+import { Container } from 'components/Container';
 
 export async function getServerSideProps() {
   try {
@@ -36,7 +37,7 @@ export default function Home(props) {
     'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,800;1,400&display=swap';
 
   return (
-    <div className="container">
+    <div className="page">
       <Head>
         <title>{metaTitle}</title>
         <meta name="description" content={description} />
@@ -51,22 +52,19 @@ export default function Home(props) {
         <link href={fontUrl} rel="stylesheet" type="text/css" />
       </Head>
 
-      <div className='hero-container'>
-        <Hero
-          activeTheme={activeTheme}
-          setTheme={setTheme}
-          {...props}
-        />
-      </div>
-
       <MouseTrail />
 
-      <article className='mixtapes-container'>
-        <header className='mixtapes-header'>
-          <h2 className='mixtapes-title'>Mixtapes</h2>
-        </header>
-        <iframe src="https://stakk.ltd/felix?embed" loading="lazy" />
-      </article>
+      <div className="hero-container">
+        <Hero activeTheme={activeTheme} setTheme={setTheme} {...props} />
+      </div>
+
+      <Container
+        backgroundColor="#ffd700"
+        color="rgb(4, 4, 4)"
+        title="Mixtapes"
+      >
+        <iframe className='mixtapes-embed' src="https://stakk.ltd/felix?embed" loading="lazy" />
+      </Container>
 
       <style jsx global>
         {`
@@ -135,37 +133,22 @@ export default function Home(props) {
             width: 1em;
             height: 1em;
           }
-
-          .hero-container {
-            position: relative;
-            z-index: 1;
-          }
-
-          .mixtapes-container {
-            background-color: #ffd700;
-            color: rgb(4, 4, 4);
-            padding-top: 1.5rem;
-            z-index: 2;
-            position: relative;
-          }
-
-          .mixtapes-header {
-            padding: 0 1.5rem;
-          }
-
-          .mixtapes-title {
-            font-size: 2.75rem;
-          }
-
-          .mixtapes-container iframe {
-            width: 100%;
-            height: 100vh;
-            border:none;
-            display: block;
-            margin: 0;
-          }
         `}
       </style>
+      <style jsx scoped>{`
+        .hero-container {
+          position: relative;
+          z-index: 1;
+        }
+
+        .mixtapes-embed {
+          width: 100%;
+          height: 100vh;
+          border: none;
+          display: block;
+          margin: 0;
+        }
+      `}</style>
     </div>
   );
 }

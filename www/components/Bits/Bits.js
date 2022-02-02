@@ -26,12 +26,12 @@ export function Bits({ bits, bitCount, initialCatId, initialBitId }) {
       }
 
       updateTimeout.current = setTimeout(() => {
-        setBitState(s => ({ ...s, visible: false }));
+        setBitState((s) => ({ ...s, visible: false }));
       }, msUntilHide);
     } else {
       const nextBit = getRandomBit(bits, state.history);
 
-      setBitState(s => ({
+      setBitState((s) => ({
         ...s,
         bit: nextBit,
         id: nextBit.data.id,
@@ -39,14 +39,13 @@ export function Bits({ bits, bitCount, initialCatId, initialBitId }) {
       }));
 
       setTimeout(() => {
-        setBitState(s => ({...s, visible: true }));
+        setBitState((s) => ({ ...s, visible: true }));
       }, 0);
-
     }
   };
 
   useEffect(() => {
-    setBitState(s => ({ ...s, visible: true }));
+    setBitState((s) => ({ ...s, visible: true }));
   }, []);
 
   return (
@@ -54,7 +53,9 @@ export function Bits({ bits, bitCount, initialCatId, initialBitId }) {
       bit={state.bit}
       key={state.id}
       onMouseEnter={cancelUpdate}
-      onMouseLeave={() => { scheduleUpdate(500) }}
+      onMouseLeave={() => {
+        scheduleUpdate(500);
+      }}
       onTransitionEnd={(evt) => {
         if (evt.target !== evt.currentTarget) return;
         scheduleUpdate(5000);

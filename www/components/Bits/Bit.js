@@ -36,7 +36,7 @@ function BaseBit({
   onMouseLeave,
   onTransitionEnd,
   title,
-  visible
+  visible,
 }) {
   const linkTitle = title || data.title;
 
