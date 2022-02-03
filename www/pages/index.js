@@ -46,7 +46,7 @@ export default function Home(props) {
 
         <meta property="og:title" content={metaTitle} />
         <meta property="og:url" content={url} />
-        <meta property="og:image" content={`${url}/assets/optimized/thumbnail.jpg`} />
+        <meta property="og:image" content={`${url}/assets/images/thumbnail.jpg`} />
         <meta property="og:description" content={ogDescription} />
 
         <link href={fontUrl} rel="stylesheet" type="text/css" />

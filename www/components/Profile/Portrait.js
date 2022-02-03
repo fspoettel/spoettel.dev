@@ -3,10 +3,10 @@ export const Portrait = ({ name, size }) => {
   return (
     <div className="portrait">
       <picture>
-        <source srcSet="/assets/optimized/portrait.webp" type="image/webp" />
+        <source srcSet="/assets/images/portrait.webp" type="image/webp" />
         <img
           className="portrait-image u-photo"
-          src="/assets/optimized/portrait.jpg"
+          src="/assets/images/portrait.jpg"
           alt={`Portrait of ${name}`}
         />
       </picture>
