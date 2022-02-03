@@ -1,8 +1,8 @@
 // import App from 'next/app'
-
 import 'sanitize.css';
-import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the CSS
+import '../global.css';
 
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false;
 

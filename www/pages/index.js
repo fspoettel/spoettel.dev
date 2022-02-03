@@ -33,9 +33,6 @@ export default function Home(props) {
 
   const metaTitle = `${name} | ${title}`;
 
-  const fontUrl =
-    'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,800;1,400&display=swap';
-
   return (
     <div className="page">
       <Head>
@@ -48,8 +45,6 @@ export default function Home(props) {
         <meta property="og:url" content={url} />
         <meta property="og:image" content={`${url}/assets/images/thumbnail.jpg`} />
         <meta property="og:description" content={ogDescription} />
-
-        <link href={fontUrl} rel="stylesheet" type="text/css" />
       </Head>
 
       <MouseTrail />
@@ -66,75 +61,6 @@ export default function Home(props) {
         <iframe className='mixtapes-embed' src="https://stakk.ltd/felix?embed" loading="lazy" />
       </Container>
 
-      <style jsx global>
-        {`
-          * {
-            box-sizing: border-box;
-          }
-
-          :root {
-            font-size: 90%;
-          }
-
-          @media screen and (min-width: 40rem) {
-            :root {
-              font-size: 100%;
-            }
-          }
-
-          @media screen and (min-width: 95rem) {
-            :root {
-              font-size: 120%;
-            }
-          }
-
-          body {
-            --color-bg: 4, 4, 4;
-            --color-text: 255, 255, 255;
-            --color-highlight: 187, 187, 187;
-          }
-
-          body.theme-light {
-            --color-bg: 250, 250, 250;
-            --color-text: 4, 4, 4;
-            --color-highlight: 153, 153, 153;
-          }
-
-          body {
-            font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-              Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-            font-weight: 400;
-            color: currentColor;
-            line-height: 1.45;
-            background: rgb(var(--color-bg));
-            color: rgb(var(--color-text));
-          }
-
-          h1,
-          h2,
-          h3,
-          h4,
-          h5,
-          h6 {
-            font-weight: 800;
-            line-height: 1;
-            margin: 0;
-          }
-
-          a {
-            color: currentColor;
-          }
-
-          a:focus {
-            outline: 1px solid rgb(var(--color-highlight));
-          }
-
-          .icon-size {
-            width: 1em;
-            height: 1em;
-          }
-        `}
-      </style>
       <style jsx scoped>{`
         .hero-container {
           position: relative;
