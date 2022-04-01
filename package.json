@@ -2,8 +2,8 @@
   "name": "@spoetteldev/workspace",
   "private": true,
   "scripts": {
-    "format": "(cd api && yarn format) && (cd www && yarn format)",
-    "lint": "(cd api && yarn lint) && (cd www && yarn lint)",
-    "dev": "(cd api && yarn dev) & (cd www && yarn dev)"
+    "format": "(cd api && npm run format) && (cd www && npm run format)",
+    "lint": "(cd api && npm run lint) && (cd www && npm run lint)",
+    "dev": "(cd api && npm run dev) & (cd www && npm run dev)"
   }
 }
