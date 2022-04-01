@@ -56,7 +56,7 @@ export default function Home(props) {
       <Container
         backgroundColor="#ffd700"
         color="rgb(4, 4, 4)"
-        title="Mixtapes"
+        title="My Mixtapes"
       >
         <iframe className='mixtapes-embed' src="https://stakk.ltd/felix?embed" loading="lazy" />
       </Container>

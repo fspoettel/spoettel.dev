@@ -19,8 +19,8 @@ export const ogDescription =
 export const url = 'https://spoettel.dev';
 
 export const company = {
-  name: 'Ciara',
-  href: 'https://www.getciara.com/',
+  name: 'Unique',
+  href: 'https://unique.ch/',
 };
 
 export const links = [
