@@ -38,12 +38,12 @@ export const Portrait = ({ name, size }) => {
           left: 0;
           border-radius: 25%;
           transform: rotate(134.5deg);
-          animation: 0.3s load ease-in-out both, 16s radius linear infinite 0.3s;
+          animation: 0.3s load ease-in-out both, 16s pulse linear infinite 0.3s;
         }
 
         @keyframes load {
-          from { box-shadow: none; }
-          to {
+          0% { box-shadow: none; }
+          100% {
             box-shadow:
               0 0 4px rgb(var(--color-bg)),
               2px 2px 0 4px rgb(var(--color-bg)),
@@ -81,12 +81,12 @@ export const Portrait = ({ name, size }) => {
               -80px -80px 0 4px rgb(var(--color-bg)),
               -84px -84px 0 4px rgba(var(--color-highlight), 0.2),
               -92px -92px 0 4px rgb(var(--color-bg)),
-              -96px -96px 0 4px rgba(var(--color-highlight), 0.1)};
+              -96px -96px 0 4px rgba(var(--color-highlight), 0.1);
           }
         }
 
-        @keyframes radius {
-          0 { border-radius: 25%; }
+        @keyframes pulse {
+          0% { border-radius: 25%; }
           25% { border-radius: 50%; transform: rotate(134.5deg) scaleX(0.95); }
           50% { border-radius: 25%; }
           75% { border-radius: 50%; transform: rotate(134.5deg) scaleX(0.95); }
@@ -95,7 +95,7 @@ export const Portrait = ({ name, size }) => {
 
         @media (prefers-reduced-motion: reduce) {
           .portrait::after {
-            animation: none;
+            animation: 0.3s load ease-in-out both;
           }
         }
       `}
