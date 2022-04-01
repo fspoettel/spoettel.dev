@@ -1,6 +1,6 @@
 import { faAt } from '@fortawesome/pro-regular-svg-icons';
 import { faPopcorn } from '@fortawesome/pro-solid-svg-icons';
-import { faGithub, faLastfm } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLastfm, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 const firstName = 'Felix';
 const lastName = 'Spöttel';
@@ -28,6 +28,11 @@ export const links = [
     href: `mailto://${email}`,
     title: 'Email',
     icon: faAt,
+  },
+  {
+    href: 'https://www.linkedin.com/in/fspoettel/',
+    title: 'Linkedin',
+    icon: faLinkedin
   },
   {
     href: 'https://github.com/fspoettel',

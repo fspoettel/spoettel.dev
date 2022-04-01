@@ -16,7 +16,7 @@ const { className, styles } = css.resolve`
     margin-bottom: 0.5rem;
   }
 
-  @media screen and (min-width: 30rem) {
+  @media screen and (min-width: 33.5rem) {
     .btn {
       display: inline;
       width: auto;
@@ -71,7 +71,7 @@ export const Profile = ({ activeTheme }) => (
           margin-top: 1.5rem;
         }
 
-        @media screen and (min-width: 30rem) {
+        @media screen and (min-width: 33.5rem) {
           .nav {
             display: flex;
             flex-flow: row nowrap;
