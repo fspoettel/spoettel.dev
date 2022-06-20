@@ -32,7 +32,7 @@ export const links = [
   {
     href: 'https://www.linkedin.com/in/fspoettel/',
     title: 'Linkedin',
-    icon: faLinkedin
+    icon: faLinkedin,
   },
   {
     href: 'https://github.com/fspoettel',

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { description, name, ogDescription, title, url } from 'constants/data';
-import { Hero } from 'components/Hero';
+import { Hero } from 'components/Hero/Hero';
 import { MouseTrail } from 'components/MouseTrail';
 import apiService from 'lib/apiService';
 import { getBitCount, getRandomBit } from 'components/Bits/helpers';
-import { Container } from 'components/Container';
+import { Section } from 'components/Section';
+import { Heading } from 'components/Heading';
 
 export async function getServerSideProps() {
   try {
@@ -53,13 +54,19 @@ export default function Home(props) {
         <Hero activeTheme={activeTheme} setTheme={setTheme} {...props} />
       </div>
 
-      <Container
+      <Section
         backgroundColor="#ffd700"
         color="rgb(4, 4, 4)"
-        title="My Mixtapes"
+        header={<Heading>My Mixtapes</Heading>}
+        height="100vh"
       >
-        <iframe className='mixtapes-embed' src="https://stakk.ltd/felix?embed" loading="lazy" allow="autoplay" />
-      </Container>
+        <iframe
+          className="mixtapes-embed"
+          src="https://stakk.ltd/felix?embed"
+          loading="lazy"
+          allow="autoplay"
+        />
+      </Section>
 
       <style jsx scoped>{`
         .hero-container {

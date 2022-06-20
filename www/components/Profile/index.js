@@ -38,7 +38,7 @@ const { className: iconClassName, styles: iconStyles } = css.resolve`
 `;
 
 export const Profile = ({ activeTheme }) => (
-  <div className="h-card">
+  <div className="profile h-card">
     <Portrait name={name} size="8rem" />
     <Titles name={name}>
       <span className="p-job-title">{title}</span>
@@ -67,6 +67,10 @@ export const Profile = ({ activeTheme }) => (
     </nav>
     <style scoped jsx>
       {`
+        .profile {
+          text-align: center;
+        }
+
         .nav {
           margin-top: 1.5rem;
         }
