@@ -115,7 +115,7 @@ const projects = [
     year: 2020,
   },
   {
-    description: '🧰 open-sourced react bindings for the Salesforce Lightning Design System.',
+    description: '🧰 open-sourced our react bindings for the Salesforce Lightning Design System.',
     href: 'https://github.com/react-lds/react-lds',
     title: 'react-lds/react-lds',
     tags: ['react'],
@@ -139,9 +139,7 @@ const projects = [
 
 export function Projects() {
   return (
-    <Section
-      header={<Heading>Projects &amp; Contributions</Heading>}
-    >
+    <Section header={<Heading>Projects &amp; Contributions</Heading>}>
       <div className="projects">
         {projects.map((p) => (
           <article className="project" key={p.href}>
@@ -168,10 +166,22 @@ export function Projects() {
         .projects {
           margin: 3rem 0;
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(1, 1fr);
           grid-auto-flow: row dense;
           gap: 1.5rem;
           align-content: flex-start;
+        }
+
+        @media screen and (min-width: 40rem) {
+          .projects {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media screen and (min-width: 54rem) {
+          .projects {
+            grid-template-columns: repeat(3, 1fr);
+          }
         }
 
         .project {
