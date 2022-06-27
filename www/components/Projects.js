@@ -1,5 +1,6 @@
 import {
   faDocker,
+  faGithub,
   faNodeJs,
   faPhp,
   faPython,
@@ -7,6 +8,7 @@ import {
   faReact,
   faRust,
 } from '@fortawesome/free-brands-svg-icons';
+import { faGlobeEurope } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Heading } from './Heading';
 import { Section } from './Section';
@@ -50,6 +52,7 @@ const projects = [
     title: 'Ambient & Airports',
     tags: ['react'],
     year: 2022,
+    type: 'website',
   },
   {
     description: '📟 command-line tool to generate random ids.',
@@ -57,6 +60,7 @@ const projects = [
     title: 'getid',
     tags: ['rust'],
     year: 2022,
+    type: 'github',
   },
   {
     description: '🌍 contributed deployment instructions for fly.',
@@ -64,6 +68,7 @@ const projects = [
     title: 'sissbruecker/linkding',
     tags: ['docker'],
     year: 2022,
+    type: 'github',
   },
   {
     description: '🌍 contributed UI components & bug fixes.',
@@ -71,6 +76,7 @@ const projects = [
     title: 'bellingcat/ukraine-timemap',
     tags: ['react'],
     year: 2022,
+    type: 'github',
   },
   {
     description: '💿 tool for sharing mixtapes and playlists as a stack of records.',
@@ -78,6 +84,7 @@ const projects = [
     title: 'stakk',
     tags: ['react'],
     year: 2021,
+    type: 'website',
   },
   {
     description: '🎄 rust solutions for advent of code 2021.',
@@ -85,6 +92,7 @@ const projects = [
     title: 'advent of code 2021',
     tags: ['rust'],
     year: 2021,
+    type: 'github',
   },
   {
     description: '📧 contributed admin panel 2FA.',
@@ -92,6 +100,7 @@ const projects = [
     title: 'mail-in-a-box/mailinabox',
     tags: ['python'],
     year: 2020,
+    type: 'github',
   },
   {
     description: '🖼️ wireless LED album art display for spotify, mpd+ncmpcpp and other players.',
@@ -99,6 +108,7 @@ const projects = [
     title: 'thirtytwopixels',
     tags: ['raspberrypi', 'python'],
     year: 2020,
+    type: 'github',
   },
   {
     description: '🤖 media transcription service built around the Google Cloud Speech-To-Text API.',
@@ -106,6 +116,7 @@ const projects = [
     title: 'Moneypenny',
     tags: ['nodejs'],
     year: 2020,
+    type: 'github',
   },
   {
     description: '🚎 website for a local van rental company.',
@@ -113,6 +124,7 @@ const projects = [
     title: 'JH Reisemobile',
     tags: ['php'],
     year: 2020,
+    type: 'website',
   },
   {
     description: '🧰 open-sourced our react bindings for the Salesforce Lightning Design System.',
@@ -120,6 +132,7 @@ const projects = [
     title: 'react-lds/react-lds',
     tags: ['react'],
     year: 2018,
+    type: 'github',
   },
   {
     description: '🎭 website for a local puppet theater.',
@@ -127,6 +140,7 @@ const projects = [
     title: 'Figurentheater Weidringer',
     tags: ['php'],
     year: 2017,
+    type: 'website',
   },
   {
     description: '🗞️ website for a local magazine.',
@@ -134,6 +148,7 @@ const projects = [
     title: 'Tonic Magazin',
     tags: ['php'],
     year: 2015,
+    type: 'website',
   },
 ];
 
@@ -149,7 +164,13 @@ export function Projects() {
               </header>
               <p className="project-description">{p.description}</p>
               <footer className="project-footer">
-                <div className="project-year">{p.year}</div>
+                <div className="project-year">
+                  <FontAwesomeIcon
+                    icon={p.type === 'github' ? faGithub : faGlobeEurope}
+                    size="1x"
+                  />
+                  <span>{p.year}</span>
+                </div>
                 <ul className="project-tags">
                   {p.tags.map((t) => (
                     <li className="tag" key={t}>
@@ -216,6 +237,7 @@ export function Projects() {
 
         .project-title {
           font-size: 1.375rem;
+          line-height: 1.25;
         }
 
         .project-description {
@@ -223,7 +245,6 @@ export function Projects() {
           margin: 0;
           padding: 0 var(--padding) var(--padding) var(--padding);
           max-width: 40ch;
-          filter: grayscale(100%);
         }
 
         .project-footer {
@@ -236,8 +257,11 @@ export function Projects() {
         }
 
         .project-year {
-          font-style: italic;
-          font-size: 75%;
+          font-size: 82.5%;
+        }
+
+        .project-year span {
+          margin-left: 0.375em;
         }
 
         .project-tags {
@@ -249,11 +273,6 @@ export function Projects() {
 
         .project-tags > *:not(:last-child) {
           margin-right: 0.5rem;
-        }
-
-        .project:hover .project-description {
-          filter: none;
-          transition: 0.15s filter ease-in-out;
         }
       `}</style>
     </Section>
