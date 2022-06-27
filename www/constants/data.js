@@ -6,7 +6,7 @@ const firstName = 'Felix';
 const lastName = 'Spöttel';
 
 export const name = `${firstName} ${lastName}`;
-export const title = 'wrangling bits';
+export const title = 'software engineer';
 
 const email = 'felix@spoet.tel';
 

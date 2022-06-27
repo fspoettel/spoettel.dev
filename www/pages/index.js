@@ -7,6 +7,7 @@ import apiService from 'lib/apiService';
 import { getBitCount, getRandomBit } from 'components/Bits/helpers';
 import { Section } from 'components/Section';
 import { Heading } from 'components/Heading';
+import { Projects } from 'components/Projects';
 
 export async function getServerSideProps() {
   try {
@@ -53,6 +54,8 @@ export default function Home(props) {
       <div className="hero-container">
         <Hero activeTheme={activeTheme} setTheme={setTheme} {...props} />
       </div>
+
+      <Projects />
 
       <Section
         backgroundColor="#ffd700"
