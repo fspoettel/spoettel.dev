@@ -48,7 +48,7 @@ const projects = [
   {
     description:
       '📍 command-line tool for clustering geolocations.',
-    href: 'https://ambient-and-airports.vercel.app/',
+    href: 'https://github.com/bellingcat/geoclustering',
     title: 'bellingcat/geoclustering',
     tags: ['python'],
     year: 2022,
