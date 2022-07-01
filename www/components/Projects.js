@@ -47,6 +47,15 @@ const tags = {
 const projects = [
   {
     description:
+      '📍 command-line tool for clustering geolocations.',
+    href: 'https://ambient-and-airports.vercel.app/',
+    title: 'bellingcat/geoclustering',
+    tags: ['python'],
+    year: 2022,
+    type: 'github',
+  },
+  {
+    description:
       '🛫 discover ambient records while listening to live airport chatter from all around the world.',
     href: 'https://ambient-and-airports.vercel.app/',
     title: 'Ambient & Airports',
@@ -202,6 +211,9 @@ export function Projects() {
         @media screen and (min-width: 54rem) {
           .projects {
             grid-template-columns: repeat(3, 1fr);
+            max-width: 82.5rem;
+            margin: 3rem auto;
+            gap: 3rem;
           }
         }
 
@@ -261,7 +273,7 @@ export function Projects() {
         }
 
         .project-year span {
-          margin-left: 0.375em;
+          margin-left: 0.375rem;
         }
 
         .project-tags {
