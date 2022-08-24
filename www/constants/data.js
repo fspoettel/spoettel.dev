@@ -10,17 +10,17 @@ export const title = 'wrangling bits';
 
 const email = 'felix@spoet.tel';
 
-export const description = `Personal website of ${name}.`;
-export const ogDescription =
-  `Hey there, I'm ${firstName}! ` +
-  "I'm a Berlin-based software developer interested in the www, music & micro controllers. " +
-  `Reach me via ${email}.`;
+export const description =
+  `Hey! ` +
+  "I'm Felix, a software engineer from Berlin interested in user interfaces, music and microcontrollers.";
+
+export const ogDescription = description;
 
 export const url = 'https://spoettel.dev';
 
 export const company = {
-  name: 'Unique',
-  href: 'https://unique.ch/',
+  name: 'Hema.to',
+  href: 'https://www.hema.to/',
 };
 
 export const links = [
