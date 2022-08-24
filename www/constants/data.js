@@ -6,7 +6,7 @@ const firstName = 'Felix';
 const lastName = 'Spöttel';
 
 export const name = `${firstName} ${lastName}`;
-export const title = 'wrangling bits';
+export const title = 'software engineer';
 
 const email = 'felix@spoet.tel';
 
@@ -32,7 +32,7 @@ export const links = [
   {
     href: 'https://www.linkedin.com/in/fspoettel/',
     title: 'Linkedin',
-    icon: faLinkedin
+    icon: faLinkedin,
   },
   {
     href: 'https://github.com/fspoettel',
