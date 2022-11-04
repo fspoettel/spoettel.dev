@@ -64,6 +64,15 @@ const projects = [
     type: 'website',
   },
   {
+    description:
+      '🎄Template for solving Advent of Code in Rust.',
+    href: 'https://github.com/fspoettel/advent-of-code-rust',
+    title: 'advent-of-code-rust',
+    tags: ['rust'],
+    year: 2022,
+    type: 'github',
+  },
+  {
     description: '📟 command-line tool to generate random ids.',
     href: 'https://github.com/fspoettel/getid',
     title: 'getid',
