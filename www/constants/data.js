@@ -40,12 +40,12 @@ export const links = [
     icon: faGithub,
   },
   {
-    href: 'https://last.fm/user/otiswedding',
+    href: 'https://last.fm/user/fffelice',
     title: 'Last.fm',
     icon: faLastfm,
   },
   {
-    href: 'https://letterboxd.com/fspoettel',
+    href: 'https://letterboxd.com/fffelice',
     title: 'Letterboxd',
     icon: faPopcorn,
   },
