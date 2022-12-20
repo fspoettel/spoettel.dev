@@ -137,14 +137,6 @@ const projects = [
     type: 'github',
   },
   {
-    description: '🚎 website for a local van rental company.',
-    href: 'https://jh-reisemobile.de',
-    title: 'JH Reisemobile',
-    tags: ['php'],
-    year: 2020,
-    type: 'website',
-  },
-  {
     description: '🧰 open-sourced our react bindings for the Salesforce Lightning Design System.',
     href: 'https://github.com/react-lds/react-lds',
     title: 'react-lds/react-lds',
