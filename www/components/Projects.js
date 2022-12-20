@@ -152,14 +152,6 @@ const projects = [
     year: 2017,
     type: 'website',
   },
-  {
-    description: '🗞️ website for a local magazine.',
-    href: 'https://www.tonic-magazin.de',
-    title: 'Tonic Magazin',
-    tags: ['php'],
-    year: 2015,
-    type: 'website',
-  },
 ];
 
 export function Projects() {
