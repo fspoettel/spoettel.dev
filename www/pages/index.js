@@ -57,20 +57,6 @@ export default function Home(props) {
 
       <Projects />
 
-      <Section
-        backgroundColor="#ffd700"
-        color="rgb(4, 4, 4)"
-        header={<Heading>My Mixtapes</Heading>}
-        height="100vh"
-      >
-        <iframe
-          className="mixtapes-embed"
-          src="https://stakk.space/felix?embed"
-          loading="lazy"
-          allow="autoplay"
-        />
-      </Section>
-
       <style jsx scoped>{`
         .hero-container {
           position: relative;
