@@ -46,6 +46,14 @@ const tags = {
 
 const projects = [
   {
+    description: "API for transcribing and translating audio / video using OpenAI's whisper model.",
+    href: "https://github.com/bellingcat/whisperbox-transcribe",
+    title: "bellingcat/whisperbox-transcribe",
+    tags: ['python'],
+    year: 2022,
+    type: 'github',
+  },
+  {
     description:
       '📍 command-line tool for clustering geolocations.',
     href: 'https://github.com/bellingcat/geoclustering',
