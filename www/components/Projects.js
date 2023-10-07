@@ -46,7 +46,7 @@ const tags = {
 
 const projects = [
   {
-    description: "API for transcribing and translating audio / video using OpenAI's whisper model.",
+    description: "🤖 API for transcribing and translating audio / video using OpenAI's whisper model.",
     href: "https://github.com/bellingcat/whisperbox-transcribe",
     title: "bellingcat/whisperbox-transcribe",
     tags: ['python'],
