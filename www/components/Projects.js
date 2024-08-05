@@ -45,6 +45,14 @@ const tags = {
 };
 
 const projects = [
+    {
+    description: '🃏 Deck builder for Arkham Horror: The Card Game™.',
+    href: 'https://arkham.build',
+    title: 'arkham.build',
+    tags: ['react'],
+    year: 2024,
+    type: 'website',
+  },
   {
     description: "🤖 API for transcribing and translating audio / video using OpenAI's whisper model.",
     href: "https://github.com/bellingcat/whisperbox-transcribe",
